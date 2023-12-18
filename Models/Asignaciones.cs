@@ -5,7 +5,7 @@ namespace DB_Enlace.models;
 
 public class Asignaciones
 {
-    [Key]
+// [Key]
     public Guid AsignacionId { get; set; }
 
     public Guid AlumnoId { get; set; }

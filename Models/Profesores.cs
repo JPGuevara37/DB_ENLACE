@@ -5,7 +5,7 @@ namespace DB_Enlace.models;
 
 public class Profesores
 {
-    [Key]
+// [Key]
     public Guid ProfesorId { get; set; }
 
     public string Nombre { get; set; }

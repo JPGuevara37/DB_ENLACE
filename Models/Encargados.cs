@@ -6,7 +6,7 @@ namespace DB_Enlace.models;
 
 public class Encargados{
         
-    [Key]
+   // [Key]
     public Guid EncargadoId { get; set; }
     public string? Nombre { get; set; }
     public string? Apellido { get; set; }

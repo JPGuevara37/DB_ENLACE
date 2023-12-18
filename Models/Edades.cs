@@ -7,7 +7,7 @@ namespace DB_Enlace.models;
 public class Edades
 {
     
-    [Key]
+  // [Key]
     public Guid EdadId { get; set; }
 
     public string RangoEdad { get; set; }

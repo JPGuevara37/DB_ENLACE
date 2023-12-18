@@ -3,6 +3,15 @@ using DB_Enlace.models;
 
 public class EnlaceContext : DbContext
 {
+    public DbSet<Alumnos> Alumnos{get;set;}
+    public DbSet<Encargados> Encargados{get;set;}
+    public DbSet<Clases> Clases{get;set;}
+    public DbSet<Edades> Edades{get;set;}
+    public DbSet<ClasesEdades> ClasesEdades{get;set;}
+    public DbSet<Asignaciones> Asignaciones{get;set;}
+    public DbSet<Profesores> Profesores{get;set;}
+
+    
     public EnlaceContext(DbContextOptions<EnlaceContext> options) :base(options){}
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -96,6 +105,23 @@ public class EnlaceContext : DbContext
             asignacion.HasOne(p => p.Alumnos).WithMany(p => p.Asignaciones).HasForeignKey(p => p.AlumnoId);
 
             asignacion.HasOne(p => p.Clases).WithMany(p => p.Asignaciones).HasForeignKey(p => p.ClaseId);
+
+        });
+
+        modelBuilder.Entity<Profesores>(profesores =>
+        {
+            profesores.ToTable("Profesores");
+            profesores.HasKey(p => p.ProfesorId);
+
+            profesores.Property(p => p.Nombre);
+
+            profesores.Property(p => p.Apellido);
+
+            profesores.Property(p => p.Email);
+
+            profesores.Property(p => p.Telefono);
+
+
 
         });
     }

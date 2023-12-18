@@ -6,7 +6,7 @@ namespace DB_Enlace.models;
 public class Clases
 {
             
-    [Key]
+   // [Key]
     public Guid ClaseId { get; set; }
     public string Nombre { get; set; }
     public string Descripcion { get; set; }

@@ -5,7 +5,7 @@ namespace DB_Enlace.models;
 
 public class ClasesEdades
 {
-    [Key]
+// [Key]
     public Guid ClaseEdadId { get; set; }
 
     public Guid ClaseId { get; set; }
