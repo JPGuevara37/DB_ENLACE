@@ -11,10 +11,10 @@ public class Asignaciones
     public Guid AlumnoId { get; set; }
 
     [JsonIgnore]
-    public virtual Alumnos Alumno { get; set; }
+    public virtual Alumnos Alumnos { get; set; }
 
     public Guid ClaseId { get; set; }
 
     [JsonIgnore]
-    public virtual Clases Clase { get; set; }
+    public virtual Clases Clases { get; set; }
 }

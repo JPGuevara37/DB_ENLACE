@@ -12,7 +12,7 @@ public class Clases
     public string Descripcion { get; set; }
     public Guid ProfesorId { get; set; }
     [JsonIgnore]
-    public virtual Profesores Profesor { get; set; }
+    public virtual Profesores Profesores { get; set; }
     [JsonIgnore]
     public virtual ICollection<Asignaciones> Asignaciones { get; set; }
     [JsonIgnore]

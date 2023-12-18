@@ -11,12 +11,12 @@ public class ClasesEdades
     public Guid ClaseId { get; set; }
 
     [JsonIgnore]
-    public virtual Clases Clase { get; set; }
+    public virtual Clases Clases { get; set; }
 
     public Guid EdadId { get; set; }
 
     [JsonIgnore]
-    public virtual Edades Edad { get; set; }
+    public virtual Edades Edades { get; set; }
   
     
 }

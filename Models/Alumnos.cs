@@ -16,12 +16,12 @@ public class Alumnos{
     public string? Telefono { get; set; }
     public Guid EncargadoId { get; set; }
     [JsonIgnore]
-    public virtual required Encargados Encargado { get; set; }
+    public virtual required Encargados Encargados { get; set; }
     [Required]
     [MaxLength(50)]
     public Guid EdadId { get; set; }
     [JsonIgnore]
-    public virtual required Edades Edad { get; set; }
+    public virtual required Edades Edades { get; set; }
     [JsonIgnore]
     public virtual required ICollection<Asignaciones> Asignaciones { get; set; }
 
