@@ -22,7 +22,7 @@ app.MapGet("/api/Alumnos", async ([FromServices] EnlaceContext DbContext) =>
     return Results.Ok(DbContext.Alumnos.Include(p=> p.AlumnoId));
 });
 
-app.MapPost("/api/tareas", async ([FromServices] EnlaceContext DbContext, [FromBody] Alumnos alumnos) =>
+app.MapPost("/api/Alumnos", async ([FromServices] EnlaceContext DbContext, [FromBody] Alumnos alumnos) =>
 {
     alumnos.AlumnoId = Guid.NewGuid();
     alumnos.FechaNacimiento = DateTime.Now;
