@@ -136,3 +136,10 @@ C:\Users\posadmin\Documents\GitHub\DB_Enlace\bin\Debug\net8.0\Swashbuckle.AspNet
 C:\Users\posadmin\Documents\GitHub\DB_Enlace\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\posadmin\Documents\GitHub\DB_Enlace\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\posadmin\Documents\GitHub\DB_Enlace\obj\Debug\net8.0\DB_Enlace.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\posadmin\Documents\GitHub\DB_Enlace\bin\Debug\net8.0\DB_Enlace_Front\angular.json
+C:\Users\posadmin\Documents\GitHub\DB_Enlace\bin\Debug\net8.0\DB_Enlace_Front\package-lock.json
+C:\Users\posadmin\Documents\GitHub\DB_Enlace\bin\Debug\net8.0\DB_Enlace_Front\package.json
+C:\Users\posadmin\Documents\GitHub\DB_Enlace\bin\Debug\net8.0\DB_Enlace_Front\tsconfig.app.json
+C:\Users\posadmin\Documents\GitHub\DB_Enlace\bin\Debug\net8.0\DB_Enlace_Front\tsconfig.json
+C:\Users\posadmin\Documents\GitHub\DB_Enlace\bin\Debug\net8.0\DB_Enlace_Front\tsconfig.spec.json
+C:\Users\posadmin\Documents\GitHub\DB_Enlace\bin\Debug\net8.0\package-lock.json

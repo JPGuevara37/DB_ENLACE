@@ -20,7 +20,6 @@ public class Alumnos{
     [JsonIgnore]
     public virtual Encargados Encargados { get; set; }
     [Required]
-    [MaxLength(50)]
     public Guid EdadId { get; set; }
     [JsonIgnore]
     public virtual Edades Edades { get; set; }

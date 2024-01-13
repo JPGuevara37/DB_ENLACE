@@ -15,6 +15,7 @@ builder.Services.AddSwaggerGen();
 //builder.Services.AddScoped<IHelloWorldService, HelloWorldService>();
 //builder.Services.AddScoped<IHelloWorldService>(p => new HelloWorldService()); //Otra manera de inyectar la dependencia
 builder.Services.AddScoped<IEncargadosService, EncargadosService>();
+builder.Services.AddScoped<IAlumnosService, AlumnosService>();
 
 var app = builder.Build();
 
