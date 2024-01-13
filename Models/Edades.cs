@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 using Microsoft.VisualBasic;
 
@@ -8,6 +9,7 @@ public class Edades
 {
     
   // [Key]
+  [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid EdadId { get; set; }
 
     public string RangoEdad { get; set; }

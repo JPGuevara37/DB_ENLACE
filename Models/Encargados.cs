@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 using Microsoft.VisualBasic;
 
@@ -7,6 +8,7 @@ namespace DB_Enlace.models;
 public class Encargados{
         
    // [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid EncargadoId { get; set; }
     public string? Nombre { get; set; }
     public string? Apellido { get; set; }

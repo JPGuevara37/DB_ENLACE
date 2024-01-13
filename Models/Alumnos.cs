@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 using Microsoft.VisualBasic;
 
@@ -7,6 +8,7 @@ namespace DB_Enlace.models;
 public class Alumnos{
     
    // [Key]
+   [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid AlumnoId { get; set; }
     public string? Nombre { get; set; }
     public string? Apellido { get; set; }
@@ -16,13 +18,13 @@ public class Alumnos{
     public string? Telefono { get; set; }
     public Guid EncargadoId { get; set; }
     [JsonIgnore]
-    public virtual required Encargados Encargados { get; set; }
+    public virtual Encargados Encargados { get; set; }
     [Required]
     [MaxLength(50)]
     public Guid EdadId { get; set; }
     [JsonIgnore]
-    public virtual required Edades Edades { get; set; }
+    public virtual Edades Edades { get; set; }
     [JsonIgnore]
-    public virtual required ICollection<Asignaciones> Asignaciones { get; set; }
+    public virtual ICollection<Asignaciones>? Asignaciones { get; set; }
 
 }

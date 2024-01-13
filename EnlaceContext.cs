@@ -23,6 +23,7 @@ public class EnlaceContext : DbContext
 
         alumnos.ToTable("Alumnos");
         alumnos.HasKey(p => p.AlumnoId);
+        //alumnos.Property(p => p.AlumnoId).HasConversion(p => BitConverter.ToInt32(p.ToByteArray(), 0), p => new Guid(BitConverter.GetBytes(p)));
 
         alumnos.Property(p => p.Nombre).IsRequired(false).HasMaxLength(150);
 
@@ -56,7 +57,11 @@ public class EnlaceContext : DbContext
         
         encargado.Property(p => p.Email);
 
-        encargado.Ignore(p => p.Telefono);
+        encargado.Property(p => p.Telefono);
+
+        //encargado.Property(p => p.EncargadoId).HasConversion(p => BitConverter.ToInt32(p.ToByteArray(), 0), p => new Guid(BitConverter.GetBytes(p)));
+
+        //encargado.Property(p => p.EncargadoId).HasConversion(p => p.ToString(),p => Guid.Parse(p));
 
         });
 
@@ -79,6 +84,8 @@ public class EnlaceContext : DbContext
 
         edad.ToTable("Edades") ;
         edad.HasKey(p => p.EdadId);
+
+        //edad.Property(p => p.EdadId).HasConversion(p => BitConverter.ToInt32(p.ToByteArray(), 0), p => new Guid(BitConverter.GetBytes(p)));
 
         edad.Property(p => p.RangoEdad ).IsRequired(false);
 
