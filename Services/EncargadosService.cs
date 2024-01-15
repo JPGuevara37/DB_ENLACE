@@ -2,14 +2,7 @@ using DB_Enlace.models;
 
 namespace webapi.Services
 {
-    public interface IEncargadosService
-    {
-        IEnumerable<Encargados> GetAll();
-        Encargados GetById(Guid id);
-        void Create(Encargados nuevoEncargado);
-        void Update(Guid id, Encargados encargadoActualizado);
-        void Delete(Guid id);
-    }
+
 
     public class EncargadosService : IEncargadosService
     {
@@ -62,5 +55,14 @@ namespace webapi.Services
                 _dbContext.SaveChanges();
             }
         }
+    }
+
+        public interface IEncargadosService
+    {
+        IEnumerable<Encargados> GetAll();
+        Encargados GetById(Guid id);
+        void Create(Encargados nuevoEncargado);
+        void Update(Guid id, Encargados encargadoActualizado);
+        void Delete(Guid id);
     }
 }

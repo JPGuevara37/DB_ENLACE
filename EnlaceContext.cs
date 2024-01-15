@@ -10,6 +10,7 @@ public class EnlaceContext : DbContext
     public DbSet<ClasesEdades> ClasesEdades{get;set;}
     public DbSet<Asignaciones> Asignaciones{get;set;}
     public DbSet<Profesores> Profesores{get;set;}
+    public DbSet<Usuarios> Usuarios{get; set;}
 
     
     public EnlaceContext(DbContextOptions<EnlaceContext> options) :base(options){}
@@ -106,7 +107,7 @@ public class EnlaceContext : DbContext
         modelBuilder.Entity<Asignaciones>(asignacion =>
         {
 
-            asignacion.ToTable("Asinaciones");
+            asignacion.ToTable("Asignaciones");
             asignacion.HasKey(p => p.AsignacionId);
 
             asignacion.HasOne(p => p.Alumnos).WithMany(p => p.Asignaciones).HasForeignKey(p => p.AlumnoId);
@@ -130,6 +131,18 @@ public class EnlaceContext : DbContext
 
 
 
+        });
+
+        modelBuilder.Entity<Usuarios>(usuarios =>
+        {
+            usuarios.ToTable("Usuarios");
+            usuarios.HasKey(p => p.UsuarioId);
+
+            usuarios.Property(p => p.NombreUsuario);
+
+            usuarios.Property(p => p.Usuario);
+
+            usuarios.Property(p => p.Password);
         });
     }
 }

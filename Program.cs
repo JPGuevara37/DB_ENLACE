@@ -3,8 +3,55 @@ using Microsoft.AspNetCore.Mvc;
 using DB_Enlace.models;
 using webapi.Services;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+//TOKEN
+
+// Obtén la clave secreta de Jwt desde appsettings.json
+var secretKey = builder.Configuration.GetSection("Jwt:SecretKey").Value;
+
+if (secretKey != null)
+{
+    // Crea la clave de seguridad simétrica
+    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
+    
+    builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = key
+        };
+    });
+}
+else
+{
+    // Manejo de error o mensaje de advertencia
+}
+
+//permitir conexion a:
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.WithOrigins("http://localhost:4200")
+               .AllowAnyHeader()
+               .AllowAnyMethod();
+    });
+});
 
 builder.Services.AddSqlServer<EnlaceContext>(builder.Configuration.GetConnectionString("cnEnlace"));
 
@@ -16,23 +63,38 @@ builder.Services.AddSwaggerGen();
 //builder.Services.AddScoped<IHelloWorldService>(p => new HelloWorldService()); //Otra manera de inyectar la dependencia
 builder.Services.AddScoped<IEncargadosService, EncargadosService>();
 builder.Services.AddScoped<IAlumnosService, AlumnosService>();
+builder.Services.AddScoped<IProfesoresService, ProfesoresService>();
+builder.Services.AddScoped<IUsuariosService, UsuariosService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseCors();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
+app.UseAuthentication();
 
-//app.UseTimeMiddleware();
+using (var serviceScope = app.Services.CreateScope())
+{
+    var dbContext = serviceScope.ServiceProvider.GetRequiredService<EnlaceContext>();
+    dbContext.Database.EnsureCreated();
+}
 
 app.MapControllers();
+
+app.MapGet("/dbconexion", async ([FromServices] EnlaceContext dbContext) =>
+{
+    dbContext.Database.EnsureCreated();
+    return Results.Ok("¡Felicidades! La base de datos ha sido creada: " + dbContext.Database.IsInMemory());
+});
+
 
 app.Run();
 
@@ -40,7 +102,7 @@ app.Run();
 /*
 var app = builder.Build();
 
-app.MapGet("/hello", () => "Hello World!");
+app.MapGet("/hello", () => "Hello World!");.
 
 app.MapGet("/dbconexion", async ([FromServices] EnlaceContext DbContext) =>
 {

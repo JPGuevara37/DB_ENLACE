@@ -1,4 +1,5 @@
 using DB_Enlace.models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using webapi.Services;
 
@@ -41,6 +42,7 @@ namespace webapi.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public IActionResult Update(Guid id, [FromBody] Encargados encargadoActualizado)
         {
             _encargadosService.Update(id, encargadoActualizado);

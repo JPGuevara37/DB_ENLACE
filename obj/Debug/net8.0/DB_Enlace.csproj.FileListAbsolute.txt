@@ -143,3 +143,4 @@ C:\Users\posadmin\Documents\GitHub\DB_Enlace\bin\Debug\net8.0\DB_Enlace_Front\ts
 C:\Users\posadmin\Documents\GitHub\DB_Enlace\bin\Debug\net8.0\DB_Enlace_Front\tsconfig.json
 C:\Users\posadmin\Documents\GitHub\DB_Enlace\bin\Debug\net8.0\DB_Enlace_Front\tsconfig.spec.json
 C:\Users\posadmin\Documents\GitHub\DB_Enlace\bin\Debug\net8.0\package-lock.json
+C:\Users\posadmin\Documents\GitHub\DB_Enlace\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
