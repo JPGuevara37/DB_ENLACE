@@ -24,7 +24,7 @@ export class EditarComponent implements OnInit{
     email: new FormControl(''),
     telefono: new FormControl(''),
     token: new FormControl(''),
-    encargadoID: new FormControl('')
+    encargadoID: new FormControl("string")
 });
 
   ngOnInit(): void {
@@ -33,19 +33,40 @@ export class EditarComponent implements OnInit{
     this.api.getSingleEncargado(encargadoId).subscribe(data => {
         this.datosEncargado = data;
         this.editarForm.setValue({
-          'nombre': this.datosEncargado.nombre,
-          'apellido': this.datosEncargado.apellido,
-          'direccion': this.datosEncargado.direccion,
-          'email': this.datosEncargado.email,
-          'telefono': this.datosEncargado.telefono,
-          'token': token,
-          'encargadoID': encargadoId
+          'nombre': this.datosEncargado.nombre ?? '',
+          'apellido': this.datosEncargado.apellido ?? '',
+          'direccion': this.datosEncargado.direccion ?? '',
+          'email': this.datosEncargado.email ?? '',
+          'telefono': this.datosEncargado.telefono ?? '',
+          'token': token ?? '',
+          'encargadoID': this.datosEncargado.encargadoId ?? ''
         })
     })
   }
 
-  getToken(){
-    return localStorage.getItem('token');
+  getToken(): string | null {
+    if (typeof localStorage !== 'undefined') {
+      return localStorage.getItem('token');
+    } else {
+      // Manejar el caso cuando localStorage no está disponible
+      return null;
+    }
+  }
+
+  /*postForm(form:IEncargado){
+    this.api.putEncargado(form).subscribe( data =>{
+      console.log(data)
+    })
+  }*/
+  
+  postForm(form: IEncargado) {
+    if (form.encargadoId) {
+      this.api.putEncargado(form.encargadoId, form).subscribe(data => {
+        console.log(data);
+      });
+    } else {
+      console.error('ID del encargado no válido');
+    }
   }
 
 }

@@ -1,9 +1,9 @@
 export interface IEncargado {
-    encargadoId:string;
-    nombre:string;
-    apellido:string;
-    direccion:string;
-    email:string;
-    telefono:string;
-    token: string;
+    encargadoId?:any;
+    nombre?:any;
+    apellido?:any;
+    direccion?:any;
+    email?:any;
+    telefono?:any;
+    token?:any;
 }

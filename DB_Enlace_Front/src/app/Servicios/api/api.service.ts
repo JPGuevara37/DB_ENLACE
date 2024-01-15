@@ -31,4 +31,14 @@ export class ApiService {
     return this.http.get<IEncargado>(direccion);
   }
 
+  /*putEncargado(form:IEncargado):Observable<IResponse>{
+    let direccion = this.url + "/api/encargados/{id}";
+    return this.http.put<IResponse>(direccion, form);
+  }*/
+
+  putEncargado(encargadoId: string, form: IEncargado): Observable<IResponse> {
+    const direccion = `${this.url}/api/encargados/${encargadoId}`;
+    return this.http.put<IResponse>(direccion, form);
+  }
+
 }
