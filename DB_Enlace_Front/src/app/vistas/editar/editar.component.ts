@@ -53,20 +53,20 @@ export class EditarComponent implements OnInit{
     }
   }
 
-  /*postForm(form:IEncargado){
+  postForm(form:IEncargado){
     this.api.putEncargado(form).subscribe( data =>{
       console.log(data)
     })
-  }*/
+  }
   
-  postForm(form: IEncargado) {
+  /*postForm(form: IEncargado) {
     if (form.encargadoId) {
       this.api.putEncargado(form.encargadoId, form).subscribe(data => {
         console.log(data);
       });
     } else {
       console.error('ID del encargado no válido');
-    }
+    }*/
   }
 
-}
+

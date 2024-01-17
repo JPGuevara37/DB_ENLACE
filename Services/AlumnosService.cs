@@ -64,7 +64,7 @@ namespace webapi.Services
         IEnumerable<Alumnos> GetAll();
         Alumnos GetById(Guid id);
         void Create(Alumnos nuevoAlumno);
-        void Update(Guid id, Alumnos encargadoAlumnos);
+        void Update(Guid id, Alumnos AlumnoActualizado);
         void Delete(Guid id);
     }
 }
