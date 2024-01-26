@@ -42,7 +42,6 @@ namespace webapi.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize]
         public IActionResult Update(Guid id, [FromBody] Encargados encargadoActualizado)
         {
             _encargadosService.Update(id, encargadoActualizado);
