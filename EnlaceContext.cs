@@ -11,6 +11,7 @@ public class EnlaceContext : DbContext
     public DbSet<Asignaciones> Asignaciones{get;set;}
     public DbSet<Profesores> Profesores{get;set;}
     public DbSet<Usuarios> Usuarios{get; set;}
+    public DbSet<Recursos> Recursos {get; set;}
 
     
     public EnlaceContext(DbContextOptions<EnlaceContext> options) :base(options){}
@@ -143,6 +144,26 @@ public class EnlaceContext : DbContext
             usuarios.Property(p => p.Usuario);
 
             usuarios.Property(p => p.Password);
+
+            usuarios.Property(p => p.Activo).HasColumnName("Activo").HasColumnType("bit").HasDefaultValue(false);
+            
+        });
+
+        
+        modelBuilder.Entity<Recursos>(recursos =>
+        {
+
+        recursos.ToTable("Recursos");
+        recursos.HasKey(p => p.RecursosId);
+        //alumnos.Property(p => p.AlumnoId).HasConversion(p => BitConverter.ToInt32(p.ToByteArray(), 0), p => new Guid(BitConverter.GetBytes(p)));
+
+        recursos.Property(p => p.Articulo).IsRequired(false).HasMaxLength(150);
+
+        recursos.Property(p => p.Categoria).IsRequired(false).HasMaxLength(150);
+
+        recursos.Property(p => p.Activo).HasColumnName("Activo").HasColumnType("bit").HasDefaultValue(false);
+
+        recursos.Property(p => p.Cantidad);
         });
     }
 }

@@ -66,6 +66,7 @@ builder.Services.AddScoped<IAlumnosService, AlumnosService>();
 builder.Services.AddScoped<IProfesoresService, ProfesoresService>();
 builder.Services.AddScoped<IUsuariosService, UsuariosService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IRecursosServices, RecursosServices>();
 
 var app = builder.Build();
 
