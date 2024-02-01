@@ -38,21 +38,40 @@ namespace webapi.Controllers
         public IActionResult Create([FromBody] Encargados nuevoEncargado)
         {
             _encargadosService.Create(nuevoEncargado);
-            return CreatedAtAction(nameof(GetById), new { id = nuevoEncargado.EncargadoId }, nuevoEncargado);
-        }
+            var response = new ApiResponse
+            {
+                status = "ok",
+                result = new { mensaje = "Datos insertados con éxito" }
+            };
+
+            return Ok(response);
+
+            //return CreatedAtAction(nameof(GetById), new { id = nuevoEncargado.EncargadoId }, nuevoEncargado);
+        } 
 
         [HttpPut("{id}")]
         public IActionResult Update(Guid id, [FromBody] Encargados encargadoActualizado)
         {
             _encargadosService.Update(id, encargadoActualizado);
-            return NoContent();
+            var response = new ApiResponse
+            {
+                status = "ok",
+                result = new { mensaje = "Datos modificados con éxito" }
+            };
+                return Ok(response);
         }
+    
 
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {
             _encargadosService.Delete(id);
-            return NoContent();
+              var response = new ApiResponse
+            {
+                status = "ok",
+                result = new { mensaje = "Datos eliminados con éxito" }
+            };
+                return Ok(response);
         }
     }
 }

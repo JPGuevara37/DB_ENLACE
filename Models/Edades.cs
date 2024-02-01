@@ -9,6 +9,7 @@ public class Edades
 {
     
   // [Key]
+  [NotMapped]
   [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid EdadId { get; set; }
 

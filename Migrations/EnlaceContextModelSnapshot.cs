@@ -34,7 +34,6 @@ namespace DB_Enlace.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("EdadId")
-                        .HasMaxLength(50)
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Email")
@@ -80,7 +79,7 @@ namespace DB_Enlace.Migrations
 
                     b.HasIndex("ClaseId");
 
-                    b.ToTable("Asinaciones", (string)null);
+                    b.ToTable("Asignaciones", (string)null);
                 });
 
             modelBuilder.Entity("DB_Enlace.models.Clases", b =>
@@ -163,6 +162,9 @@ namespace DB_Enlace.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("Telefono")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("EncargadoId");
 
                     b.ToTable("Encargados", (string)null);
@@ -193,6 +195,60 @@ namespace DB_Enlace.Migrations
                     b.HasKey("ProfesorId");
 
                     b.ToTable("Profesores", (string)null);
+                });
+
+            modelBuilder.Entity("Recursos", b =>
+                {
+                    b.Property<Guid>("RecursosId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Activo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("Activo");
+
+                    b.Property<string>("Articulo")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("Cantidad")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Categoria")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.HasKey("RecursosId");
+
+                    b.ToTable("Recursos", (string)null);
+                });
+
+            modelBuilder.Entity("Usuarios", b =>
+                {
+                    b.Property<Guid>("UsuarioId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Activo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("Activo");
+
+                    b.Property<string>("NombreUsuario")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Usuario")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UsuarioId");
+
+                    b.ToTable("Usuarios", (string)null);
                 });
 
             modelBuilder.Entity("DB_Enlace.models.Alumnos", b =>
