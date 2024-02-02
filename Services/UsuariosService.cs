@@ -38,6 +38,7 @@ namespace webapi.Services
                 usuario.NombreUsuario = usuarioActualizado.NombreUsuario;
                 usuario.Usuario = usuarioActualizado.Usuario;
                 usuario.Password = usuarioActualizado.Password;
+                usuario.Activo = usuarioActualizado.Activo;
 
                 _dbContext.SaveChanges();
             }

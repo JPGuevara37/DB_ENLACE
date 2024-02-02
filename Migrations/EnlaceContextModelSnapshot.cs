@@ -31,7 +31,8 @@ namespace DB_Enlace.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Direccion")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<Guid>("EdadId")
                         .HasColumnType("uniqueidentifier");
@@ -89,8 +90,8 @@ namespace DB_Enlace.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Descripcion")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Nombre")
                         .HasMaxLength(50)
@@ -152,8 +153,8 @@ namespace DB_Enlace.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Direccion")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");

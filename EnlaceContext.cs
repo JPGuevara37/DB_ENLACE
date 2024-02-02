@@ -33,7 +33,7 @@ public class EnlaceContext : DbContext
 
         alumnos.Property(p => p.FechaNacimiento);
 
-        alumnos.Property(p => p.Direccion);
+        alumnos.Property(p => p.Direccion).IsRequired(false).HasMaxLength(200);
 
         alumnos.Property(p => p.Email);
 
@@ -55,7 +55,7 @@ public class EnlaceContext : DbContext
 
         encargado.Property(p => p.Apellido).IsRequired(false).HasMaxLength(50);
 
-        encargado.Property(p => p.Direccion).IsRequired(false).HasMaxLength(50);
+        encargado.Property(p => p.Direccion).IsRequired(false).HasMaxLength(200);
         
         encargado.Property(p => p.Email);
 
@@ -75,7 +75,7 @@ public class EnlaceContext : DbContext
 
         clase.Property(p => p.Nombre).IsRequired(false).HasMaxLength(50);
 
-        clase.Property(p => p.Descripcion).IsRequired(false).HasMaxLength(50);
+        clase.Property(p => p.Descripcion).IsRequired(false).HasMaxLength(200);
 
         clase.HasOne(p => p.Profesores).WithMany(p => p.Clases).HasForeignKey(p => p.ProfesorId);
 
