@@ -1,0 +1,9 @@
+{
+    "appService.preDeployTask": "publish-release",
+    "appService.deploySubpath": "bin\\Release\\net8.0\\publish",
+    "appService.defaultWebAppToDeploy": "/subscriptions/9d5a789c-b8f3-4514-a93c-2f60d9bcaf72/resourceGroups/carrillo/providers/Microsoft.Web/sites/enlace-backend",
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ]
+}
