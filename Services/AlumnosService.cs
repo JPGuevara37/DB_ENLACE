@@ -41,6 +41,8 @@ namespace webapi.Services
                 alumno.Direccion = alumnoActualizado.Direccion;
                 alumno.Email = alumnoActualizado.Email;
                 alumno.Telefono = alumnoActualizado.Telefono;
+                alumno.EncargadoId = alumnoActualizado.EncargadoId;
+                alumno.EdadId = alumnoActualizado.EdadId;
 
                 _dbContext.SaveChanges();
             }

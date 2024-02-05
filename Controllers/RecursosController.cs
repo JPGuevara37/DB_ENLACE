@@ -38,21 +38,39 @@ namespace webapi.Controllers
         public IActionResult Create([FromBody] Recursos nuevoRecurso)
         {
             _recursosServices.Create(nuevoRecurso);
-            return CreatedAtAction(nameof(GetById), new { id = nuevoRecurso.RecursosId }, nuevoRecurso);
-        }
+            var response = new ApiResponse
+            {
+                status = "ok",
+                result = new { mensaje = "Datos insertados con éxito" }
+            };
+
+            return Ok(response);
+
+            //return CreatedAtAction(nameof(GetById), new { id = nuevoEncargado.EncargadoId }, nuevoEncargado);
+        } 
 
         [HttpPut("{id}")]
         public IActionResult Update(Guid id, [FromBody] Recursos recursoActualizado)
         {
             _recursosServices.Update(id, recursoActualizado);
-            return NoContent();
+            var response = new ApiResponse
+            {
+                status = "ok",
+                result = new { mensaje = "Datos modificados con éxito" }
+            };
+            return Ok(response);
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {
             _recursosServices.Delete(id);
-            return NoContent();
+              var response = new ApiResponse
+            {
+                status = "ok",
+                result = new { mensaje = "Datos eliminados con éxito" }
+            };
+                return Ok(response);
         }
     }
 }

@@ -36,9 +36,10 @@ namespace webapi.Services
             if (recurso != null)
             {
                 recurso.Articulo = RecursoActualizado.Articulo;
-                recurso.Activo = RecursoActualizado.Activo;
-                recurso.Categoria = RecursoActualizado.Categoria;
+                recurso.Numero_Locker = RecursoActualizado.Numero_Locker;
                 recurso.Cantidad = RecursoActualizado.Cantidad;
+                recurso.Descripcion = RecursoActualizado.Descripcion;
+                recurso.Activo = RecursoActualizado.Activo;
 
                 _dbContext.SaveChanges();
             }

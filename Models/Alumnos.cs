@@ -12,6 +12,7 @@ public class Alumnos{
     public Guid AlumnoId { get; set; }
     public string? Nombre { get; set; }
     public string? Apellido { get; set; }
+    [Column(TypeName = "date")]
     public DateTime FechaNacimiento { get; set; }
     public string? Direccion { get; set; }
     public string? Email { get; set; }

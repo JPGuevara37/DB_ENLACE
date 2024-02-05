@@ -145,7 +145,7 @@ public class EnlaceContext : DbContext
 
             usuarios.Property(p => p.Password);
 
-            usuarios.Property(p => p.Activo).HasColumnName("Activo").HasColumnType("bit").HasDefaultValue(false);
+            usuarios.Property(p => p.Activo).HasColumnName("Activo").HasColumnType("bit").HasDefaultValue(true);
             
         });
 
@@ -159,11 +159,13 @@ public class EnlaceContext : DbContext
 
         recursos.Property(p => p.Articulo).IsRequired(false).HasMaxLength(150);
 
-        recursos.Property(p => p.Categoria).IsRequired(false).HasMaxLength(150);
-
-        recursos.Property(p => p.Activo).HasColumnName("Activo").HasColumnType("bit").HasDefaultValue(false);
+        recursos.Property(p => p.Numero_Locker);
 
         recursos.Property(p => p.Cantidad);
+
+        recursos.Property(p => p.Descripcion).IsRequired(false).HasMaxLength(350);
+
+        recursos.Property(p => p.Activo).HasColumnName("Activo").HasColumnType("bit").HasDefaultValue(false);
         });
     }
 }

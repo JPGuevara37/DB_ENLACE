@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DB_Enlace.Migrations
 {
     [DbContext(typeof(EnlaceContext))]
-    partial class EnlaceContextModelSnapshot : ModelSnapshot
+    [Migration("20240201053844_cambiosApiStatus")]
+    partial class cambiosApiStatus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,8 +34,7 @@ namespace DB_Enlace.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Direccion")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("EdadId")
                         .HasColumnType("uniqueidentifier");
@@ -44,7 +46,7 @@ namespace DB_Enlace.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("FechaNacimiento")
-                        .HasColumnType("date");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Nombre")
                         .HasMaxLength(150)
@@ -90,8 +92,8 @@ namespace DB_Enlace.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Descripcion")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Nombre")
                         .HasMaxLength(50)
@@ -153,8 +155,8 @@ namespace DB_Enlace.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Direccion")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
@@ -214,15 +216,12 @@ namespace DB_Enlace.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<int?>("Cantidad")
-                        .HasColumnType("int");
+                    b.Property<string>("Cantidad")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Descripcion")
-                        .HasMaxLength(350)
-                        .HasColumnType("nvarchar(350)");
-
-                    b.Property<int>("Numero_Locker")
-                        .HasColumnType("int");
+                    b.Property<string>("Categoria")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.HasKey("RecursosId");
 
@@ -238,7 +237,7 @@ namespace DB_Enlace.Migrations
                     b.Property<bool>("Activo")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
-                        .HasDefaultValue(true)
+                        .HasDefaultValue(false)
                         .HasColumnName("Activo");
 
                     b.Property<string>("NombreUsuario")
