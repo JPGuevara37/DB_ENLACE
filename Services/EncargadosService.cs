@@ -15,7 +15,7 @@ namespace webapi.Services
 
         public IEnumerable<Encargados> GetAll()
         {
-            return _dbContext.Encargados.ToList();
+            return _dbContext.Encargados.OrderBy(encagado => encagado.Nombre).ToList();
         }
 
         public Encargados GetById(Guid id)

@@ -68,6 +68,7 @@ builder.Services.AddScoped<IUsuariosService, UsuariosService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IRecursosServices, RecursosServices>();
 builder.Services.AddScoped<IExampleService, ExampleService>();
+builder.Services.AddScoped<IEdadesService, EdadesService>();
 
 var app = builder.Build();
 
