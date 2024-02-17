@@ -2,8 +2,20 @@
     "appService.preDeployTask": "publish-release",
     "appService.deploySubpath": "bin\\Release\\net8.0\\publish",
     "appService.defaultWebAppToDeploy": "/subscriptions/9d5a789c-b8f3-4514-a93c-2f60d9bcaf72/resourceGroups/carrillo/providers/Microsoft.Web/sites/enlace-backend",
+    "editor.minimap.enabled": false,
+    "editor.scrollbar.vertical": "hidden",
+    "editor.overviewRulerBorder": false,
+    "editor.hideCursorInOverviewRuler": false,
+    "editor.formatOnSave": true,
+    "editor.guides.indentation": false,
+    "indenticator.width": 0.1,
+    "indenticator.color.dark": "rgb(255,255,255,0.1)",
+    "breadcrumbs.enabled": false,
+    "editor.glyphMargin": false,
+    "workbench.statusBar.visible": false,
     "appService.zipIgnorePattern": [
         "node_modules{,/**}",
         ".vscode{,/**}"
     ]
+
 }
