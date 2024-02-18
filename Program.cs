@@ -17,7 +17,7 @@ if (secretKey != null)
 {
     // Crea la clave de seguridad simétrica
     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
-    
+
     builder.Services.AddAuthentication(options =>
     {
         options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -77,7 +77,11 @@ if (app.Environment.IsDevelopment())
 {
     app.UseCors();
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "API_ENLACE)");
+        c.RoutePrefix = string.Empty;
+    });
 }
 
 app.UseHttpsRedirection();
@@ -98,9 +102,7 @@ app.MapGet("/dbconexion", async ([FromServices] EnlaceContext dbContext) =>
     return Results.Ok("¡Felicidades! La base de datos ha sido creada: " + dbContext.Database.IsInMemory());
 });
 
-
 app.Run();
-
 
 /*
 var app = builder.Build();
