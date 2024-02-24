@@ -51,6 +51,14 @@ builder.Services.AddCors(options =>
                .AllowAnyHeader()
                .AllowAnyMethod();
     });
+
+    // Agregar una segunda política CORS si es necesario
+    options.AddPolicy("PoliticaProduccion", builder =>
+    {
+        builder.WithOrigins("https://jolly-wave-0788d9610.4.azurestaticapps.net")
+               .AllowAnyHeader()
+               .AllowAnyMethod();
+    });
 });
 
 builder.Services.AddSqlServer<EnlaceContext>(builder.Configuration.GetConnectionString("cnEnlace"));
