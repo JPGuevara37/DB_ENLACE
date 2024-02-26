@@ -15,7 +15,7 @@ namespace webapi.Services
 
         public IEnumerable<Alumnos> GetAll()
         {
-            return _dbContext.Alumnos.ToList();
+            return _dbContext.Alumnos.OrderBy(alumno => alumno.Nombre).ToList();
         }
 
         public Alumnos GetById(Guid id)
@@ -50,16 +50,16 @@ namespace webapi.Services
 
         public void Delete(Guid id)
         {
-            var alumno = _dbContext.Encargados.Find(id);
+            var alumno = _dbContext.Alumnos.Find(id);
 
             if (alumno != null)
             {
-                _dbContext.Encargados.Remove(alumno);
+                _dbContext.Alumnos.Remove(alumno);
                 _dbContext.SaveChanges();
             }
         }
     }
-    
+
 
     public interface IAlumnosService
     {
