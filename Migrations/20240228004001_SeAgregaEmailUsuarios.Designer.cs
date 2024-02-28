@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DB_Enlace.Migrations
 {
     [DbContext(typeof(EnlaceContext))]
-    [Migration("20240204043951_SeAgregaintCantidadEnRecursos")]
-    partial class SeAgregaintCantidadEnRecursos
+    [Migration("20240228004001_SeAgregaEmailUsuarios")]
+    partial class SeAgregaEmailUsuarios
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -243,6 +243,9 @@ namespace DB_Enlace.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(true)
                         .HasColumnName("Activo");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NombreUsuario")
                         .HasColumnType("nvarchar(max)");

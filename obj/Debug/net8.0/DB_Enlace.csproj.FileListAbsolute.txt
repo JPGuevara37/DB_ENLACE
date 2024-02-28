@@ -138,3 +138,6 @@ C:\Users\posadmin\Documents\GitHub\DB_Enlace\obj\Debug\net8.0\DB_Enlace.pdb
 C:\Users\posadmin\Documents\GitHub\DB_Enlace\obj\Debug\net8.0\DB_Enlace.genruntimeconfig.cache
 C:\Users\posadmin\Documents\GitHub\DB_Enlace\obj\Debug\net8.0\ref\DB_Enlace.dll
 C:\Users\posadmin\Documents\GitHub\DB_Enlace\obj\Debug\net8.0\DB_Enlace.csproj.Up2Date
+C:\Users\posadmin\Documents\GitHub\DB_Enlace\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\posadmin\Documents\GitHub\DB_Enlace\bin\Debug\net8.0\SendGrid.dll
+C:\Users\posadmin\Documents\GitHub\DB_Enlace\bin\Debug\net8.0\StarkbankEcdsa.dll

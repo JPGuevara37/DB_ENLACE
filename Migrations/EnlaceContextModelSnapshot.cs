@@ -241,13 +241,19 @@ namespace DB_Enlace.Migrations
                         .HasDefaultValue(true)
                         .HasColumnName("Activo");
 
-                    b.Property<string>("NombreUsuario")
+                    b.Property<string>("Apellido")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nombre")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Usuario")
+                    b.Property<string>("Usuario_Cuenta")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UsuarioId");

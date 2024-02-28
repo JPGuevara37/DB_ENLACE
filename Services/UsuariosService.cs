@@ -35,9 +35,13 @@ namespace webapi.Services
 
             if (usuario != null)
             {
-                usuario.NombreUsuario = usuarioActualizado.NombreUsuario;
-                usuario.Usuario = usuarioActualizado.Usuario;
+                usuario.Nombre = usuarioActualizado.Nombre;
+                usuario.Apellido = usuarioActualizado.Apellido;
+                usuario.Usuario_Cuenta = usuarioActualizado.Usuario_Cuenta;
                 usuario.Password = usuarioActualizado.Password;
+                usuario.Email = usuarioActualizado.Email;
+                usuario.Token = usuarioActualizado.Token;
+                usuario.Role = usuarioActualizado.Role;
                 usuario.Activo = usuarioActualizado.Activo;
 
                 _dbContext.SaveChanges();

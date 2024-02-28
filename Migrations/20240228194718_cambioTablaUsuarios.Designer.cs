@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DB_Enlace.Migrations
 {
     [DbContext(typeof(EnlaceContext))]
-    [Migration("20240204042131_EliminarCategoriaAgregarNumeroLocker")]
-    partial class EliminarCategoriaAgregarNumeroLocker
+    [Migration("20240228194718_cambioTablaUsuarios")]
+    partial class cambioTablaUsuarios
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -217,8 +217,12 @@ namespace DB_Enlace.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<string>("Cantidad")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Descripcion")
+                        .HasMaxLength(350)
+                        .HasColumnType("nvarchar(350)");
 
                     b.Property<int>("Numero_Locker")
                         .HasColumnType("int");
@@ -240,13 +244,19 @@ namespace DB_Enlace.Migrations
                         .HasDefaultValue(true)
                         .HasColumnName("Activo");
 
-                    b.Property<string>("NombreUsuario")
+                    b.Property<string>("Apellido")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nombre")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Usuario")
+                    b.Property<string>("Usuario_Cuenta")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UsuarioId");

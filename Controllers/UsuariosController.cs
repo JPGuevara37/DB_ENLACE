@@ -1,6 +1,7 @@
-using DB_Enlace.models;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using webapi.Services;
+using DB_Enlace.models;
 
 namespace webapi.Controllers
 {
@@ -38,7 +39,13 @@ namespace webapi.Controllers
         public IActionResult Create([FromBody] Usuarios nuevoUsuario)
         {
             _usuariosService.Create(nuevoUsuario);
-            return CreatedAtAction(nameof(GetById), new { id = nuevoUsuario.UsuarioId }, nuevoUsuario);
+            var response = new ApiResponse
+            {
+                status = "ok",
+                result = new { mensaje = "Datos insertados con éxito" }
+            };
+
+            return Ok(response);
         }
 
         [HttpPut("{id}")]
