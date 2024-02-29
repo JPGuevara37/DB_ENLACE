@@ -14,6 +14,7 @@ namespace webapi.Controllers
             _alumnosService = alumnosService;
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -46,7 +47,7 @@ namespace webapi.Controllers
             return Ok(response);
 
             //return CreatedAtAction(nameof(GetById), new { id = nuevoEncargado.EncargadoId }, nuevoEncargado);
-        } 
+        }
 
         [HttpPut("{id}")]
         public IActionResult Update(Guid id, [FromBody] Alumnos alumnosActualizado)
@@ -57,19 +58,19 @@ namespace webapi.Controllers
                 status = "ok",
                 result = new { mensaje = "Datos modificados con éxito" }
             };
-                return Ok(response);
+            return Ok(response);
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {
             _alumnosService.Delete(id);
-              var response = new ApiResponse
+            var response = new ApiResponse
             {
                 status = "ok",
                 result = new { mensaje = "Datos eliminados con éxito" }
             };
-                return Ok(response);
+            return Ok(response);
         }
     }
 }
