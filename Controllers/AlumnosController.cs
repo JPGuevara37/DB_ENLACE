@@ -14,7 +14,6 @@ namespace webapi.Controllers
             _alumnosService = alumnosService;
         }
 
-        [Authorize]
         [HttpGet]
         public IActionResult GetAll()
         {
