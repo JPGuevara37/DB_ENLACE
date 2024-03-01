@@ -95,7 +95,7 @@ namespace webapi.Controllers
             => _dbContext.Usuarios.AnyAsync(p => p.Email == email);
 
         private Task<bool> CheckEmailExisteAsync(string? username)
-            => _dbContext.Usuarios.AnyAsync(x => x.Email == username);
+            => _dbContext.Usuarios.AnyAsync(p => p.Usuario_Cuenta == username);
 
         private static string CheckPasswordStrength(string pass)
         {
