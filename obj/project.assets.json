@@ -4278,7 +4278,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\jose.guevara\\.nuget\\packages\\": {},
+    "C:\\Users\\posadmin\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
@@ -4287,14 +4287,14 @@
       "projectUniqueName": "C:\\Users\\posadmin\\Documents\\GitHub\\DB_Enlace\\DB_Enlace.csproj",
       "projectName": "DB_Enlace",
       "projectPath": "C:\\Users\\posadmin\\Documents\\GitHub\\DB_Enlace\\DB_Enlace.csproj",
-      "packagesPath": "C:\\Users\\jose.guevara\\.nuget\\packages\\",
+      "packagesPath": "C:\\Users\\posadmin\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\posadmin\\Documents\\GitHub\\DB_Enlace\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\jose.guevara\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\posadmin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
