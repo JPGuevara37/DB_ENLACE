@@ -11,10 +11,11 @@ using Microsoft.AspNetCore.Mvc; // Si también estás utilizando ControllerBase 
 
 
 var builder = WebApplication.CreateBuilder(args);
+
 //TOKEN
 
 // Obtén la clave secreta de Jwt desde appsettings.json
-var secretKey = builder.Configuration.GetSection("Jwt:SecretKey").Value;
+/*var secretKey = builder.Configuration.GetSection("Jwt:SecretKey").Value;
 
 if (secretKey != null)
 {
@@ -46,7 +47,7 @@ else
 {
     // Manejo de error o mensaje de advertencia
 }
-
+*/
 //permitir conexion a:
 builder.Services.AddCors(options =>
 {

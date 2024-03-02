@@ -23,9 +23,9 @@ namespace webapi.Services
 
         public Usuarios Autenticar(string nombreUsuario, string password)
         {
+            // Lógica de autenticación
             return _dbContext.Usuarios.FirstOrDefault(u => u.Usuario_Cuenta == nombreUsuario && u.Password == password);
         }
-
 
         public string GenerarToken(Usuarios usuario)
         {
@@ -34,10 +34,10 @@ namespace webapi.Services
 
             var claims = new[]
             {
-            new Claim(JwtRegisteredClaimNames.Sub, usuario.UsuarioId.ToString()),  // Puedes agregar más claims según necesites
-            new Claim(JwtRegisteredClaimNames.UniqueName, usuario.Usuario_Cuenta),
-            // ... otros claims
-        };
+                   new Claim(JwtRegisteredClaimNames.Sub, usuario.UsuarioId.ToString()),
+                   new Claim(JwtRegisteredClaimNames.UniqueName, usuario.Usuario_Cuenta),
+                   // ... otros claims
+            };
 
             var token = new JwtSecurityToken(
                 issuer: _configuration["Jwt:Issuer"],
@@ -49,12 +49,12 @@ namespace webapi.Services
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-
-    }
-
-    public interface IAuthService
-    {
-        Usuarios Autenticar(string nombreUsuario, string password);
-        string GenerarToken(Usuarios usuario);
     }
 }
+
+public interface IAuthService
+{
+    Usuarios Autenticar(string Usuario_Cuenta, string password);
+    string GenerarToken(Usuarios usuario);
+}
+

@@ -21,6 +21,7 @@ namespace webapi.Controllers
 
         private readonly EnlaceContext _dbContext;
         private readonly IConfiguration _configuration;
+        private readonly IAuthService _authService;
 
         public AutenticarController(
             IAuthService authService,
@@ -30,6 +31,7 @@ namespace webapi.Controllers
         {
             _configuration = configuration;
             _dbContext = dbContext; // Asigna el dbContext correctamente
+            _authService = authService;
         }
 
         [HttpPost("authenticate")]
