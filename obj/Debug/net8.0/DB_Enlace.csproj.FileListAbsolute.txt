@@ -141,3 +141,6 @@ C:\Users\posadmin\Documents\GitHub\DB_Enlace\obj\Debug\net8.0\DB_Enlace.csproj.U
 C:\Users\posadmin\Documents\GitHub\DB_Enlace\bin\Debug\net8.0\Newtonsoft.Json.dll
 C:\Users\posadmin\Documents\GitHub\DB_Enlace\bin\Debug\net8.0\SendGrid.dll
 C:\Users\posadmin\Documents\GitHub\DB_Enlace\bin\Debug\net8.0\StarkbankEcdsa.dll
+C:\Users\posadmin\Documents\GitHub\DB_Enlace\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
+C:\Users\posadmin\Documents\GitHub\DB_Enlace\bin\Debug\net8.0\MailKit.dll
+C:\Users\posadmin\Documents\GitHub\DB_Enlace\bin\Debug\net8.0\MimeKit.dll

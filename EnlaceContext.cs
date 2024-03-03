@@ -155,6 +155,13 @@ public class EnlaceContext : DbContext
 
             usuarios.Property(p => p.Activo).HasColumnName("Activo").HasColumnType("bit").HasDefaultValue(true);
 
+            usuarios.Property(p => p.Resfrescar_Token);
+
+            usuarios.Property(p => p.ResetPasswordToken);
+
+            usuarios.Property(p => p.ResetPasswordExpiry);
+
+
         });
 
 

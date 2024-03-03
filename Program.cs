@@ -84,6 +84,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IRecursosServices, RecursosServices>();
 builder.Services.AddScoped<IExampleService, ExampleService>();
 builder.Services.AddScoped<IEdadesService, EdadesService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 var app = builder.Build();
 
