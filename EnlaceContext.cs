@@ -155,7 +155,9 @@ public class EnlaceContext : DbContext
 
             usuarios.Property(p => p.Activo).HasColumnName("Activo").HasColumnType("bit").HasDefaultValue(true);
 
-            usuarios.Property(p => p.Resfrescar_Token);
+            usuarios.Property(p => p.RefreshToken).IsRequired(false).HasMaxLength(150);
+
+            usuarios.Property(p => p.RefreshTokenExpiryTime);
 
             usuarios.Property(p => p.ResetPasswordToken);
 
