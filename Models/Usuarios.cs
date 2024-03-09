@@ -11,7 +11,8 @@ public class Usuarios
     public string? Email { get; set; }
     public string? Role { get; set; }
     public bool Activo { get; set; } = false;
-    public DateTime Resfrescar_Token { get; set; }
+    public string? RefreshToken { get; set; }
+    public DateTime RefreshTokenExpiryTime { get; set; }
     public string? ResetPasswordToken { get; set; }
     public DateTime ResetPasswordExpiry { get; set; }
 }

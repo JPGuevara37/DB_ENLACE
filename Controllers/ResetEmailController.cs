@@ -9,6 +9,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
+using DB_Enlace.Models.Dto;
 using DB_Enlace.Models;
 using DB_Enlace.Helpers;
 using System.Security.Cryptography;
@@ -53,15 +54,13 @@ namespace webapi.Controllers
                     Message = "El correo no existe"
                 });
             }
-            var randomGenerator = RandomNumberGenerator.Create();
-            var tokenBytes = new byte[64];
-            randomGenerator.GetBytes(tokenBytes);
+            var tokenBytes = RandomNumberGenerator.GetBytes(64);
             var emailToken = Convert.ToBase64String(tokenBytes);
             usuario.ResetPasswordToken = emailToken;
             usuario.ResetPasswordExpiry = DateTime.Now.AddMinutes(15);
             string from = _configuration["EmailSettings:From"];
-            var EmailModel = new EmailModel(email, "Restablecimiento de contraseña", EmailBody.EmailStringBody(email, emailToken));
-            _emailService.SendEmail(EmailModel);
+            var emailModel = new EmailModel(email, "Restablecimiento de contraseña", EmailBody.EmailStringBody(email, emailToken));
+            _emailService.SendEmail(emailModel);
             _dbContext.Entry(usuario).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
             return Ok(new
@@ -74,6 +73,7 @@ namespace webapi.Controllers
         [HttpPost("reset-password")]
         public async Task<IActionResult> ResetPassword(ResetPasswordDto resetPasswordDto)
         {
+
             var newToken = resetPasswordDto.EmailToken.Replace(" ", "+");
             var usuario = await _dbContext.Usuarios.AsNoTracking().FirstOrDefaultAsync(p => p.Email == resetPasswordDto.Email);
             if (usuario is null)
@@ -84,6 +84,7 @@ namespace webapi.Controllers
                     Message = "Usuario no existe"
                 });
             }
+            Console.WriteLine($"Usuario: {usuario}");
             var tokenCode = usuario.ResetPasswordToken;
             DateTime emailTokenExpiry = usuario.ResetPasswordExpiry;
             if (tokenCode != resetPasswordDto.EmailToken || emailTokenExpiry < DateTime.Now)
@@ -102,6 +103,8 @@ namespace webapi.Controllers
                 StatusCode = 200,
                 Message = "Contraseña restablecida"
             });
+
+
         }
     }
 }
