@@ -57,7 +57,7 @@ namespace webapi.Controllers
             var tokenBytes = RandomNumberGenerator.GetBytes(64);
             var emailToken = Base64UrlEncoder.Encode(tokenBytes);
             usuario.ResetPasswordToken = emailToken;
-            usuario.ResetPasswordExpiry = DateTime.Now.AddMinutes(15);
+            usuario.ResetPasswordExpiry = DateTime.Now.AddHours(24);
             string from = _configuration["EmailSettings:From"];
             var resetBaseUrl = _configuration["Frontend:Url"] ?? "https://enlace.jifftry.com";
             var emailModel = new EmailModel(email, "Restablecimiento de contraseña", EmailBody.EmailStringBody(email, emailToken, resetBaseUrl));
