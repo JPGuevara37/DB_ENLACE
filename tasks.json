@@ -1,0 +1,67 @@
+{
+  "tareas": [
+    {
+      "id": "T-01",
+      "titulo": "CRUD Encargados",
+      "descripcion": "Entidad Encargados expuesta en /api/encargados (GET/GET{id}/POST/PUT/DELETE).",
+      "status": "done",
+      "requiere_sdd": false
+    },
+    {
+      "id": "T-02",
+      "titulo": "CRUD Alumnos",
+      "descripcion": "Entidad Alumnos expuesta en /api/alumnos, con FK a Encargados y Edades.",
+      "status": "done",
+      "requiere_sdd": false
+    },
+    {
+      "id": "T-03",
+      "titulo": "CRUD Profesores",
+      "descripcion": "Entidad Profesores expuesta en /api/profesores.",
+      "status": "done",
+      "requiere_sdd": false
+    },
+    {
+      "id": "T-04",
+      "titulo": "CRUD Recursos",
+      "descripcion": "Entidad Recursos expuesta en /api/recursos.",
+      "status": "done",
+      "requiere_sdd": false
+    },
+    {
+      "id": "T-05",
+      "titulo": "CRUD Edades",
+      "descripcion": "Entidad Edades expuesta en /api/edad.",
+      "status": "done",
+      "requiere_sdd": false
+    },
+    {
+      "id": "T-06",
+      "titulo": "CRUD Usuarios",
+      "descripcion": "Entidad Usuarios expuesta en /api/usuarios.",
+      "status": "done",
+      "requiere_sdd": false
+    },
+    {
+      "id": "T-07",
+      "titulo": "Autenticacion y reset",
+      "descripcion": "Login/registro en /api/autenticar y reset de contrasena en /api/ResetEmail.",
+      "status": "done",
+      "requiere_sdd": false
+    },
+    {
+      "id": "T-08",
+      "titulo": "Actualizacion a .NET 10",
+      "descripcion": "Migrar el proyecto de net8.0 a net10.0 y paquetes EF/JwtBearer a 10.x.",
+      "status": "done",
+      "requiere_sdd": false
+    },
+    {
+      "id": "T-09",
+      "titulo": "Pruebas unitarias e integracion",
+      "descripcion": "Proyecto de tests con WebApplicationFactory y cobertura de endpoints de escritura.",
+      "status": "pending",
+      "requiere_sdd": true
+    }
+  ]
+}

@@ -2,12 +2,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using DB_Enlace.models;
 using webapi.Services;
-using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Microsoft.AspNetCore.Cors; // Para EnableCorsAttribute
-using Microsoft.AspNetCore.Mvc; // Si también estás utilizando ControllerBase u otros componentes de MVC
+using Microsoft.AspNetCore.Cors;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -48,22 +46,17 @@ else
     // Manejo de error o mensaje de advertencia
 }
 */
-//permitir conexion a:
+// CORS: orígenes configurables (env var Cors__Origins, separados por coma)
+var corsOrigins = (builder.Configuration["Cors:Origins"] ?? "http://localhost:4200")
+    .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+
 builder.Services.AddCors(options =>
 {
-    options.AddDefaultPolicy(builder =>
+    options.AddDefaultPolicy(policy =>
     {
-        builder.WithOrigins("http://localhost:4200")
-               .AllowAnyHeader()
-               .AllowAnyMethod();
-    });
-
-    // Agregar una segunda política CORS si es necesario
-    options.AddPolicy("PoliticaProduccion", builder =>
-    {
-        builder.WithOrigins("https://jolly-wave-0788d9610.4.azurestaticapps.net")
-               .AllowAnyHeader()
-               .AllowAnyMethod();
+        policy.WithOrigins(corsOrigins)
+              .AllowAnyHeader()
+              .AllowAnyMethod();
     });
 });
 
@@ -88,10 +81,11 @@ builder.Services.AddScoped<IEmailService, EmailService>();
 
 var app = builder.Build();
 
+app.UseCors();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseCors();
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
@@ -100,9 +94,8 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-app.UseHttpsRedirection();
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
 
 using (var serviceScope = app.Services.CreateScope())
 {

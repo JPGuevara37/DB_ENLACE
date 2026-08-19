@@ -4,15 +4,13 @@ namespace webapi.Services
 {
     public class PasswordHasher
     {
-        private static RNGCryptoServiceProvider rNG = new RNGCryptoServiceProvider();
         private static readonly int SaltSize = 16;
         private static readonly int HashSize = 20;
         private static readonly int Iterations = 10000;
 
         public static string HashPassword(string password)
         {
-            byte[] salt;
-            rNG.GetBytes(salt = new byte[SaltSize]);
+            byte[] salt = RandomNumberGenerator.GetBytes(SaltSize);
             var key = new Rfc2898DeriveBytes(password, salt, Iterations);
             var hash = key.GetBytes(HashSize);
 
