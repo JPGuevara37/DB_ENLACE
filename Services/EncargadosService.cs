@@ -37,6 +37,9 @@ namespace webapi.Services
             {
                 encargado.Nombre = encargadoActualizado.Nombre;
                 encargado.Apellido = encargadoActualizado.Apellido;
+                encargado.Provincia = encargadoActualizado.Provincia;
+                encargado.Canton = encargadoActualizado.Canton;
+                encargado.Distrito = encargadoActualizado.Distrito;
                 encargado.Direccion = encargadoActualizado.Direccion;
                 encargado.Email = encargadoActualizado.Email;
                 encargado.Telefono = encargadoActualizado.Telefono;

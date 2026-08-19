@@ -128,6 +128,11 @@ using (var serviceScope = app.Services.CreateScope())
 
         dbContext.Database.ExecuteSqlRaw(@"
             UPDATE Usuarios SET Role = 'lidere' WHERE LTRIM(RTRIM(Usuario_Cuenta)) = 'Pri Araya'");
+
+        dbContext.Database.ExecuteSqlRaw(@"
+            IF COL_LENGTH('Encargados', 'Provincia') IS NULL ALTER TABLE Encargados ADD Provincia nvarchar(100) NULL;
+            IF COL_LENGTH('Encargados', 'Canton') IS NULL ALTER TABLE Encargados ADD Canton nvarchar(100) NULL;
+            IF COL_LENGTH('Encargados', 'Distrito') IS NULL ALTER TABLE Encargados ADD Distrito nvarchar(100) NULL;");
     }
     catch (Exception ex)
     {

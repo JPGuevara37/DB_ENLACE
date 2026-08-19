@@ -56,6 +56,12 @@ public class EnlaceContext : DbContext
 
             encargado.Property(p => p.Apellido).IsRequired(false).HasMaxLength(50);
 
+            encargado.Property(p => p.Provincia).IsRequired(false).HasMaxLength(100);
+
+            encargado.Property(p => p.Canton).IsRequired(false).HasMaxLength(100);
+
+            encargado.Property(p => p.Distrito).IsRequired(false).HasMaxLength(100);
+
             encargado.Property(p => p.Direccion).IsRequired(false).HasMaxLength(200);
 
             encargado.Property(p => p.Email);
