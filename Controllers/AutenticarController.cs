@@ -6,7 +6,6 @@ using DB_Enlace.models;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
@@ -63,53 +62,9 @@ namespace webapi.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> ResgistroDeUsuario([FromBody] Usuarios usuarioObj)
+        public IActionResult ResgistroDeUsuario()
         {
-            if (usuarioObj == null)
-                return BadRequest();
-
-            //check Usuario_Cuenta
-            if (await CheckUsuarioCuentaExisteAsync(usuarioObj.Usuario_Cuenta))
-                return BadRequest(new { Message = "El usuario ya existe, por favor elige otro nombre de usuario" });
-
-            //Check correo
-            if (await CheckEmailExisteAsync(usuarioObj.Email))
-                return BadRequest(new { Message = "El correo ya existe, por favor elige otro correo" });
-
-            //Check password
-            var passMessage = CheckPasswordStrength(usuarioObj.Password);
-            if (!string.IsNullOrEmpty(passMessage))
-                return BadRequest(new { Message = passMessage.ToString() });
-
-            usuarioObj.Password = PasswordHasher.HashPassword(usuarioObj.Password);
-            usuarioObj.Role = "profes";
-            usuarioObj.Token = "";
-            await _dbContext.Usuarios.AddAsync(usuarioObj);
-            await _dbContext.SaveChangesAsync();
-
-            return Ok(new
-            {
-                Message = "Registro exitoso"
-            });
-        }
-
-        private Task<bool> CheckUsuarioCuentaExisteAsync(string? email)
-            => _dbContext.Usuarios.AnyAsync(p => p.Usuario_Cuenta == email);
-
-        private Task<bool> CheckEmailExisteAsync(string? username)
-            => _dbContext.Usuarios.AnyAsync(p => p.Email == username);
-
-        private static string CheckPasswordStrength(string pass)
-        {
-            StringBuilder sb = new StringBuilder();
-            if (pass.Length < 8)
-                sb.Append("la contrasena tiene que tener mínimo 8 caracteres" + Environment.NewLine);
-            if (!(Regex.IsMatch(pass, "[a-z]") && Regex.IsMatch(pass, "[A-Z]")
-                && Regex.IsMatch(pass, "[0-9]")))
-                sb.Append("La contrasena tiene que tener caracteres alfanuméricos y mayúsculas(a-z, A-Z, 0-9)" + Environment.NewLine);
-            if (!Regex.IsMatch(pass, "[<,>,@,!,#,$,%,^,&,*,(,),_,+,\\[,\\],{,},?,:,;,|,',\\,.,/,~,`,-,=]"))
-                sb.Append("La contrasena tiene que tener caracteres especiales" + Environment.NewLine);
-            return sb.ToString();
+            return Forbid();
         }
 
         private string CreateJwt(Usuarios usuario)
