@@ -121,7 +121,13 @@ using (var serviceScope = app.Services.CreateScope())
             END");
 
         dbContext.Database.ExecuteSqlRaw(@"
-            UPDATE Usuarios SET Role = 'administrador' WHERE Usuario_Cuenta = 'jose.guevara' AND (Role IS NULL OR Role = '' OR Role = 'User')");
+            UPDATE Usuarios SET Role = 'profes' WHERE Role IS NULL OR Role = '' OR Role = 'User'");
+
+        dbContext.Database.ExecuteSqlRaw(@"
+            UPDATE Usuarios SET Role = 'administrador' WHERE LTRIM(RTRIM(Usuario_Cuenta)) = 'jose.guevara'");
+
+        dbContext.Database.ExecuteSqlRaw(@"
+            UPDATE Usuarios SET Role = 'lidere' WHERE LTRIM(RTRIM(Usuario_Cuenta)) = 'Pri Araya'");
     }
     catch (Exception ex)
     {
