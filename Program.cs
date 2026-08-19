@@ -11,41 +11,29 @@ using Microsoft.AspNetCore.Cors;
 var builder = WebApplication.CreateBuilder(args);
 
 //TOKEN
+var jwtSecretKey = builder.Configuration["Jwt:SecretKey"] ?? throw new InvalidOperationException("Jwt:SecretKey no configurado");
+var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSecretKey));
 
-// Obtén la clave secreta de Jwt desde appsettings.json
-/*var secretKey = builder.Configuration.GetSection("Jwt:SecretKey").Value;
-
-if (secretKey != null)
+builder.Services.AddAuthentication(options =>
 {
-    // Crea la clave de seguridad simétrica
-    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
-
-    builder.Services.AddAuthentication(options =>
-    {
-        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    })
-    .AddJwtBearer(options =>
-    {
-        options.RequireHttpsMetadata = false;
-        options.SaveToken = true;
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = false,
-            ValidateAudience = false,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-            ValidAudience = builder.Configuration["Jwt:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretKey"]))
-        };
-    });
-}
-else
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
 {
-    // Manejo de error o mensaje de advertencia
-}
-*/
+    options.RequireHttpsMetadata = false;
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = signingKey,
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        ValidateLifetime = true,
+        RoleClaimType = System.Security.Claims.ClaimTypes.Role
+    };
+});
+
 // CORS: orígenes configurables (env var Cors__Origins, separados por coma)
 var corsOrigins = (builder.Configuration["Cors:Origins"] ?? "http://localhost:4200")
     .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
@@ -78,6 +66,7 @@ builder.Services.AddScoped<IRecursosServices, RecursosServices>();
 builder.Services.AddScoped<IExampleService, ExampleService>();
 builder.Services.AddScoped<IEdadesService, EdadesService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IMaterialService, MaterialService>();
 
 var app = builder.Build();
 
@@ -113,6 +102,30 @@ using (var serviceScope = app.Services.CreateScope())
             Console.WriteLine($"Base de datos no lista (intento {attempt}/{maxAttempts}): {ex.Message}");
             Thread.Sleep(5000);
         }
+    }
+
+    try
+    {
+        dbContext.Database.ExecuteSqlRaw(@"
+            IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Materiales]') AND type in (N'U'))
+            BEGIN
+                CREATE TABLE [dbo].[Materiales] (
+                    [MaterialId] uniqueidentifier NOT NULL PRIMARY KEY,
+                    [Nombre] nvarchar(200) NULL,
+                    [Descripcion] nvarchar(500) NULL,
+                    [Fecha] datetime2 NOT NULL,
+                    [Contenido] varbinary(max) NULL,
+                    [ContentType] nvarchar(100) NULL,
+                    [Tamano] bigint NOT NULL
+                );
+            END");
+
+        dbContext.Database.ExecuteSqlRaw(@"
+            UPDATE Usuarios SET Role = 'administrador' WHERE Usuario_Cuenta = 'jose.guevara' AND (Role IS NULL OR Role = '' OR Role = 'User')");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error preparando la base de datos: {ex.Message}");
     }
 }
 

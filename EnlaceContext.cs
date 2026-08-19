@@ -12,6 +12,7 @@ public class EnlaceContext : DbContext
     public DbSet<Profesores> Profesores { get; set; }
     public DbSet<Usuarios> Usuarios { get; set; }
     public DbSet<Recursos> Recursos { get; set; }
+    public DbSet<Material> Materiales { get; set; }
 
 
     public EnlaceContext(DbContextOptions<EnlaceContext> options) : base(options) { }
@@ -183,6 +184,19 @@ public class EnlaceContext : DbContext
             recursos.Property(p => p.Descripcion).IsRequired(false).HasMaxLength(350);
 
             recursos.Property(p => p.Activo).HasColumnName("Activo").HasColumnType("bit").HasDefaultValue(false);
+        });
+
+        modelBuilder.Entity<Material>(material =>
+        {
+            material.ToTable("Materiales");
+            material.HasKey(p => p.MaterialId);
+
+            material.Property(p => p.Nombre).IsRequired(false).HasMaxLength(200);
+            material.Property(p => p.Descripcion).IsRequired(false).HasMaxLength(500);
+            material.Property(p => p.Fecha);
+            material.Property(p => p.Contenido);
+            material.Property(p => p.ContentType).IsRequired(false).HasMaxLength(100);
+            material.Property(p => p.Tamano);
         });
     }
 }

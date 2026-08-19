@@ -82,7 +82,7 @@ namespace webapi.Controllers
                 return BadRequest(new { Message = passMessage.ToString() });
 
             usuarioObj.Password = PasswordHasher.HashPassword(usuarioObj.Password);
-            usuarioObj.Role = "User";
+            usuarioObj.Role = "profes";
             usuarioObj.Token = "";
             await _dbContext.Usuarios.AddAsync(usuarioObj);
             await _dbContext.SaveChangesAsync();
