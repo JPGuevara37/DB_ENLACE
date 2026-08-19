@@ -62,6 +62,13 @@
       "descripcion": "Proyecto de tests con WebApplicationFactory y cobertura de endpoints de escritura.",
       "status": "pending",
       "requiere_sdd": true
+    },
+    {
+      "id": "T-10",
+      "titulo": "Modulo de configuracion - gestion de usuarios",
+      "descripcion": "UsuariosController restringido a rol administrador con DTOs (sin exponer password/token), hash de contrasena al crear/actualizar, validacion de cuentas duplicadas y login que rechaza usuarios inactivos.",
+      "status": "done",
+      "requiere_sdd": false
     }
   ]
 }

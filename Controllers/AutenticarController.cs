@@ -52,6 +52,11 @@ namespace webapi.Controllers
                 return BadRequest(new { Message = "Contrasena esta incorrecta" });
             }
 
+            if (!usuario.Activo)
+            {
+                return Unauthorized(new { Message = "Usuario inactivo. Contacte al administrador." });
+            }
+
             usuario.Token = CreateJwt(usuario);
 
             return Ok(new
