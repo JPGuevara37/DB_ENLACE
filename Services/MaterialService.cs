@@ -37,6 +37,9 @@ namespace webapi.Services
             {
                 material.Nombre = materialActualizado.Nombre;
                 material.Descripcion = materialActualizado.Descripcion;
+                material.Categoria = materialActualizado.Categoria;
+                material.Mes = materialActualizado.Mes;
+                material.Anno = materialActualizado.Anno;
 
                 if (materialActualizado.Contenido != null && materialActualizado.Contenido.Length > 0)
                 {

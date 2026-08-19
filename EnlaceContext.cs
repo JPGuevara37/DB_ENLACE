@@ -13,6 +13,7 @@ public class EnlaceContext : DbContext
     public DbSet<Usuarios> Usuarios { get; set; }
     public DbSet<Recursos> Recursos { get; set; }
     public DbSet<Material> Materiales { get; set; }
+    public DbSet<RolesMes> RolesMes { get; set; }
 
 
     public EnlaceContext(DbContextOptions<EnlaceContext> options) : base(options) { }
@@ -137,6 +138,7 @@ public class EnlaceContext : DbContext
 
             profesores.Property(p => p.Telefono);
 
+            profesores.Property(p => p.Categoria).IsRequired(false).HasMaxLength(50);
 
 
         });
@@ -199,10 +201,27 @@ public class EnlaceContext : DbContext
 
             material.Property(p => p.Nombre).IsRequired(false).HasMaxLength(200);
             material.Property(p => p.Descripcion).IsRequired(false).HasMaxLength(500);
+            material.Property(p => p.Categoria).IsRequired(false).HasMaxLength(100);
+            material.Property(p => p.Mes).IsRequired(false);
+            material.Property(p => p.Anno).IsRequired(false);
             material.Property(p => p.Fecha);
             material.Property(p => p.Contenido);
             material.Property(p => p.ContentType).IsRequired(false).HasMaxLength(100);
             material.Property(p => p.Tamano);
+        });
+
+        modelBuilder.Entity<RolesMes>(rol =>
+        {
+            rol.ToTable("RolesMes");
+            rol.HasKey(p => p.RolMesId);
+
+            rol.Property(p => p.EdadId);
+            rol.Property(p => p.PersonaId);
+            rol.Property(p => p.Mes);
+            rol.Property(p => p.Anno);
+            rol.Property(p => p.Estado).IsRequired(false).HasMaxLength(50);
+            rol.Property(p => p.Disponible);
+            rol.Property(p => p.FechaCreacion);
         });
     }
 }

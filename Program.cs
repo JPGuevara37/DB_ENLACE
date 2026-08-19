@@ -67,6 +67,7 @@ builder.Services.AddScoped<IExampleService, ExampleService>();
 builder.Services.AddScoped<IEdadesService, EdadesService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IMaterialService, MaterialService>();
+builder.Services.AddScoped<IRolesMesService, RolesMesService>();
 
 var app = builder.Build();
 
@@ -132,7 +133,27 @@ using (var serviceScope = app.Services.CreateScope())
         dbContext.Database.ExecuteSqlRaw(@"
             IF COL_LENGTH('Encargados', 'Provincia') IS NULL ALTER TABLE Encargados ADD Provincia nvarchar(100) NULL;
             IF COL_LENGTH('Encargados', 'Canton') IS NULL ALTER TABLE Encargados ADD Canton nvarchar(100) NULL;
-            IF COL_LENGTH('Encargados', 'Distrito') IS NULL ALTER TABLE Encargados ADD Distrito nvarchar(100) NULL;");
+            IF COL_LENGTH('Encargados', 'Distrito') IS NULL ALTER TABLE Encargados ADD Distrito nvarchar(100) NULL;
+
+            IF COL_LENGTH('Materiales', 'Categoria') IS NULL ALTER TABLE Materiales ADD Categoria nvarchar(100) NULL;
+            IF COL_LENGTH('Materiales', 'Mes') IS NULL ALTER TABLE Materiales ADD Mes int NULL;
+            IF COL_LENGTH('Materiales', 'Anno') IS NULL ALTER TABLE Materiales ADD Anno int NULL;
+
+            IF COL_LENGTH('Profesores', 'Categoria') IS NULL ALTER TABLE Profesores ADD Categoria nvarchar(50) NULL;
+
+            IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[RolesMes]') AND type in (N'U'))
+            BEGIN
+                CREATE TABLE [dbo].[RolesMes] (
+                    [RolMesId] uniqueidentifier NOT NULL PRIMARY KEY,
+                    [EdadId] uniqueidentifier NOT NULL,
+                    [PersonaId] uniqueidentifier NOT NULL,
+                    [Mes] int NOT NULL,
+                    [Anno] int NOT NULL,
+                    [Estado] nvarchar(50) NULL,
+                    [Disponible] bit NOT NULL,
+                    [FechaCreacion] datetime2 NOT NULL
+                );
+            END");
     }
     catch (Exception ex)
     {

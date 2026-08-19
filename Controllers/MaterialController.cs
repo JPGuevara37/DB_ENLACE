@@ -52,7 +52,10 @@ namespace webapi.Controllers
         public async Task<IActionResult> Upload(
             [FromForm] IFormFile archivo,
             [FromForm] string? nombre,
-            [FromForm] string? descripcion)
+            [FromForm] string? descripcion,
+            [FromForm] string? categoria,
+            [FromForm] int? mes,
+            [FromForm] int? anno)
         {
             if (archivo == null || archivo.Length == 0)
             {
@@ -71,6 +74,9 @@ namespace webapi.Controllers
                 MaterialId = Guid.NewGuid(),
                 Nombre = string.IsNullOrWhiteSpace(nombre) ? archivo.FileName : nombre,
                 Descripcion = descripcion,
+                Categoria = categoria,
+                Mes = mes,
+                Anno = anno,
                 Fecha = DateTime.Now,
                 Contenido = ms.ToArray(),
                 ContentType = archivo.ContentType ?? "application/pdf",

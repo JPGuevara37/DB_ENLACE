@@ -9,6 +9,9 @@ public class Material
     public Guid MaterialId { get; set; }
     public string? Nombre { get; set; }
     public string? Descripcion { get; set; }
+    public string? Categoria { get; set; }
+    public int? Mes { get; set; }
+    public int? Anno { get; set; }
     public DateTime Fecha { get; set; }
 
     [JsonIgnore]

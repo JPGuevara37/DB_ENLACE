@@ -16,6 +16,8 @@ public class Profesores
 
     public string Telefono { get; set; }
 
+    public string Categoria { get; set; } = "Profesor";
+
     [JsonIgnore]
     public virtual ICollection<Clases> Clases { get; set; }
     
