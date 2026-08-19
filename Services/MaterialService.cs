@@ -40,6 +40,7 @@ namespace webapi.Services
                 material.Categoria = materialActualizado.Categoria;
                 material.Mes = materialActualizado.Mes;
                 material.Anno = materialActualizado.Anno;
+                material.Dia = materialActualizado.Dia;
 
                 if (materialActualizado.Contenido != null && materialActualizado.Contenido.Length > 0)
                 {

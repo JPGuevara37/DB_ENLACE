@@ -41,6 +41,7 @@ namespace webapi.Services
                 rol.PersonaId = actualizado.PersonaId;
                 rol.Mes = actualizado.Mes;
                 rol.Anno = actualizado.Anno;
+                rol.Dia = actualizado.Dia;
                 rol.Estado = actualizado.Estado;
                 rol.Disponible = actualizado.Disponible;
                 _dbContext.SaveChanges();

@@ -138,8 +138,11 @@ using (var serviceScope = app.Services.CreateScope())
             IF COL_LENGTH('Materiales', 'Categoria') IS NULL ALTER TABLE Materiales ADD Categoria nvarchar(100) NULL;
             IF COL_LENGTH('Materiales', 'Mes') IS NULL ALTER TABLE Materiales ADD Mes int NULL;
             IF COL_LENGTH('Materiales', 'Anno') IS NULL ALTER TABLE Materiales ADD Anno int NULL;
+            IF COL_LENGTH('Materiales', 'Dia') IS NULL ALTER TABLE Materiales ADD Dia int NULL;
 
             IF COL_LENGTH('Profesores', 'Categoria') IS NULL ALTER TABLE Profesores ADD Categoria nvarchar(50) NULL;
+
+            IF COL_LENGTH('RolesMes', 'Dia') IS NULL ALTER TABLE RolesMes ADD Dia int NOT NULL DEFAULT 1;
 
             IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[RolesMes]') AND type in (N'U'))
             BEGIN

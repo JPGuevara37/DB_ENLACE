@@ -13,6 +13,7 @@ public class RolesMes
 
     public int Mes { get; set; }
     public int Anno { get; set; }
+    public int Dia { get; set; }
 
     public string Estado { get; set; } = "Propuesta";
 

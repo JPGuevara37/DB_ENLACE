@@ -204,6 +204,7 @@ public class EnlaceContext : DbContext
             material.Property(p => p.Categoria).IsRequired(false).HasMaxLength(100);
             material.Property(p => p.Mes).IsRequired(false);
             material.Property(p => p.Anno).IsRequired(false);
+            material.Property(p => p.Dia).IsRequired(false);
             material.Property(p => p.Fecha);
             material.Property(p => p.Contenido);
             material.Property(p => p.ContentType).IsRequired(false).HasMaxLength(100);
@@ -219,6 +220,7 @@ public class EnlaceContext : DbContext
             rol.Property(p => p.PersonaId);
             rol.Property(p => p.Mes);
             rol.Property(p => p.Anno);
+            rol.Property(p => p.Dia);
             rol.Property(p => p.Estado).IsRequired(false).HasMaxLength(50);
             rol.Property(p => p.Disponible);
             rol.Property(p => p.FechaCreacion);

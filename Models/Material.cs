@@ -12,6 +12,7 @@ public class Material
     public string? Categoria { get; set; }
     public int? Mes { get; set; }
     public int? Anno { get; set; }
+    public int? Dia { get; set; }
     public DateTime Fecha { get; set; }
 
     [JsonIgnore]

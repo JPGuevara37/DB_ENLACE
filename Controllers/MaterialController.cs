@@ -55,7 +55,8 @@ namespace webapi.Controllers
             [FromForm] string? descripcion,
             [FromForm] string? categoria,
             [FromForm] int? mes,
-            [FromForm] int? anno)
+            [FromForm] int? anno,
+            [FromForm] int? dia)
         {
             if (archivo == null || archivo.Length == 0)
             {
@@ -77,6 +78,7 @@ namespace webapi.Controllers
                 Categoria = categoria,
                 Mes = mes,
                 Anno = anno,
+                Dia = dia,
                 Fecha = DateTime.Now,
                 Contenido = ms.ToArray(),
                 ContentType = archivo.ContentType ?? "application/pdf",
