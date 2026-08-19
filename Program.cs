@@ -131,7 +131,11 @@ using (var serviceScope = app.Services.CreateScope())
             UPDATE Usuarios SET Role = 'lidere' WHERE LTRIM(RTRIM(Usuario_Cuenta)) = 'Pri Araya'");
 
         dbContext.Database.ExecuteSqlRaw(@"
-            UPDATE Usuarios SET Activo = 1 WHERE Activo IS NULL");
+            IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[_MigActivarUsuarios]') AND type in (N'U'))
+            BEGIN
+                UPDATE Usuarios SET Activo = 1 WHERE Activo IS NULL OR Activo = 0;
+                CREATE TABLE [dbo].[_MigActivarUsuarios] ([Id] int IDENTITY(1,1) NOT NULL);
+            END");
 
         dbContext.Database.ExecuteSqlRaw(@"
             IF COL_LENGTH('Encargados', 'Provincia') IS NULL ALTER TABLE Encargados ADD Provincia nvarchar(100) NULL;
