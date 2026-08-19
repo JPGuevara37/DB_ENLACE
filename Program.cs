@@ -100,7 +100,20 @@ app.UseAuthorization();
 using (var serviceScope = app.Services.CreateScope())
 {
     var dbContext = serviceScope.ServiceProvider.GetRequiredService<EnlaceContext>();
-    dbContext.Database.EnsureCreated();
+    const int maxAttempts = 12;
+    for (var attempt = 1; ; attempt++)
+    {
+        try
+        {
+            dbContext.Database.EnsureCreated();
+            break;
+        }
+        catch (Exception ex) when (attempt < maxAttempts)
+        {
+            Console.WriteLine($"Base de datos no lista (intento {attempt}/{maxAttempts}): {ex.Message}");
+            Thread.Sleep(5000);
+        }
+    }
 }
 
 app.MapControllers();
