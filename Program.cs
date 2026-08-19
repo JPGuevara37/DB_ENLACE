@@ -144,6 +144,12 @@ using (var serviceScope = app.Services.CreateScope())
 
             IF COL_LENGTH('RolesMes', 'Dia') IS NULL ALTER TABLE RolesMes ADD Dia int NOT NULL DEFAULT 1;
 
+            IF NOT EXISTS (SELECT * FROM sys.default_constraints WHERE name = 'DF_Materiales_MaterialId')
+                ALTER TABLE Materiales ADD CONSTRAINT DF_Materiales_MaterialId DEFAULT (newid()) FOR MaterialId;
+
+            IF NOT EXISTS (SELECT * FROM sys.default_constraints WHERE name = 'DF_RolesMes_RolMesId')
+                ALTER TABLE RolesMes ADD CONSTRAINT DF_RolesMes_RolMesId DEFAULT (newid()) FOR RolMesId;
+
             IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[RolesMes]') AND type in (N'U'))
             BEGIN
                 CREATE TABLE [dbo].[RolesMes] (
