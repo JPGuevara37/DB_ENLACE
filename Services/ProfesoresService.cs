@@ -39,6 +39,7 @@ namespace webapi.Services
                 profesor.Apellido = ProfesorActualizado.Apellido;
                 profesor.Email = ProfesorActualizado.Email;
                 profesor.Telefono = ProfesorActualizado.Telefono;
+                profesor.Categoria = ProfesorActualizado.Categoria;
 
                 _dbContext.SaveChanges();
             }
