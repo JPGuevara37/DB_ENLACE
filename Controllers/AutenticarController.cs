@@ -62,6 +62,8 @@ namespace webapi.Controllers
             return Ok(new
             {
                 Token = usuario.Token,
+                Nombre = usuario.Nombre,
+                Apellido = usuario.Apellido,
                 Message = "Login exitoso"
             });
         }
@@ -79,7 +81,7 @@ namespace webapi.Controllers
             var identity = new ClaimsIdentity(new Claim[]
             {
                 new Claim(ClaimTypes.Role, usuario.Role),
-                new Claim(ClaimTypes.Name,$"{usuario.Nombre}{usuario.Apellido}")
+                new Claim(ClaimTypes.Name,$"{usuario.Nombre} {usuario.Apellido}")
             });
 
             var credentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256);
