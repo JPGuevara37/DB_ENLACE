@@ -2,8 +2,9 @@ namespace DB_Enlace.Helpers
 {
     public static class EmailBody
     {
-        public static string EmailStringBody(string email, string emailToken)
+        public static string EmailStringBody(string email, string emailToken, string resetBaseUrl)
         {
+            var resetUrl = $"{resetBaseUrl.TrimEnd('/')}/reset?email={Uri.EscapeDataString(email)}&code={Uri.EscapeDataString(emailToken)}";
             return $@"
                 <!DOCTYPE html>
                 <html lang='en'>
@@ -46,7 +47,7 @@ namespace DB_Enlace.Helpers
                     <div class='container'>
                         <h2>Restablecer Contraseña</h2>
                         <p>Has solicitado restablecer tu contraseña. Haz clic en el siguiente enlace para cambiar tu contraseña:</p>
-                        <a href=""https://jolly-wave-0788d9610.4.azurestaticapps.net/reset?email={email}&code={emailToken}"">Restablecer Contraseña</a>
+                        <a href=""{resetUrl}"">Restablecer Contraseña</a>
                         <p>Si no has solicitado este restablecimiento, puedes ignorar este correo de forma segura.<br><br>
                         Saludos cordiales.<br><br>
                         Ministerio infantil Enlace.</p>

@@ -55,11 +55,12 @@ namespace webapi.Controllers
                 });
             }
             var tokenBytes = RandomNumberGenerator.GetBytes(64);
-            var emailToken = Convert.ToBase64String(tokenBytes);
+            var emailToken = Base64UrlEncoder.Encode(tokenBytes);
             usuario.ResetPasswordToken = emailToken;
             usuario.ResetPasswordExpiry = DateTime.Now.AddMinutes(15);
             string from = _configuration["EmailSettings:From"];
-            var emailModel = new EmailModel(email, "Restablecimiento de contraseña", EmailBody.EmailStringBody(email, emailToken));
+            var resetBaseUrl = _configuration["Frontend:Url"] ?? "https://enlace.jifftry.com";
+            var emailModel = new EmailModel(email, "Restablecimiento de contraseña", EmailBody.EmailStringBody(email, emailToken, resetBaseUrl));
             _emailService.SendEmail(emailModel);
             _dbContext.Entry(usuario).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
@@ -71,11 +72,11 @@ namespace webapi.Controllers
         }
 
         [HttpPost("reset-password")]
-        public async Task<IActionResult> ResetPassword(ResetPasswordDto resetPasswordDto)
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto resetPasswordDto)
         {
 
-            var newToken = resetPasswordDto.EmailToken.Replace(" ", "+");
-            var usuario = await _dbContext.Usuarios.AsNoTracking().FirstOrDefaultAsync(p => p.Email == resetPasswordDto.Email);
+            var newToken = resetPasswordDto.EmailToken?.Replace(" ", "+") ?? "";
+            var usuario = await _dbContext.Usuarios.FirstOrDefaultAsync(p => p.Email == resetPasswordDto.Email);
             if (usuario is null)
             {
                 return NotFound(new
@@ -84,19 +85,17 @@ namespace webapi.Controllers
                     Message = "Usuario no existe"
                 });
             }
-            Console.WriteLine($"Usuario: {usuario}");
-            var tokenCode = usuario.ResetPasswordToken;
-            DateTime emailTokenExpiry = usuario.ResetPasswordExpiry;
-            if (tokenCode != resetPasswordDto.EmailToken || emailTokenExpiry < DateTime.Now)
+            if (usuario.ResetPasswordToken != newToken || usuario.ResetPasswordExpiry < DateTime.Now)
             {
                 return BadRequest(new
                 {
                     StatusCode = 400,
-                    Message = "Enlace de reset no existe"
+                    Message = "Enlace de reset no existe o expiró"
                 });
             }
             usuario.Password = PasswordHasher.HashPassword(resetPasswordDto.NewPassword);
-            _dbContext.Entry(usuario).State = EntityState.Modified;
+            usuario.ResetPasswordToken = null;
+            usuario.ResetPasswordExpiry = DateTime.MinValue;
             await _dbContext.SaveChangesAsync();
             return Ok(new
             {
