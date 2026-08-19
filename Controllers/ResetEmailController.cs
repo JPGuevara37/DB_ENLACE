@@ -44,7 +44,7 @@ namespace webapi.Controllers
         [HttpPost("send-reset-email/{email}")]
         public async Task<IActionResult> SendEmail(string email)
         {
-            var usuario = await _dbContext.Usuarios.FirstOrDefaultAsync(p => p.Email == email);
+            var usuario = await _dbContext.Usuarios.FirstOrDefaultAsync(p => p.Email != null && p.Email.Trim() == email.Trim());
 
             if (usuario is null)
             {
@@ -76,7 +76,8 @@ namespace webapi.Controllers
         {
 
             var newToken = resetPasswordDto.EmailToken?.Replace(" ", "+") ?? "";
-            var usuario = await _dbContext.Usuarios.FirstOrDefaultAsync(p => p.Email == resetPasswordDto.Email);
+            var emailBusqueda = resetPasswordDto.Email?.Trim() ?? "";
+            var usuario = await _dbContext.Usuarios.FirstOrDefaultAsync(p => p.Email != null && p.Email.Trim() == emailBusqueda);
             if (usuario is null)
             {
                 return NotFound(new
