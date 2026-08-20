@@ -13,6 +13,7 @@ using DB_Enlace.Models.Dto;
 using DB_Enlace.Models;
 using DB_Enlace.Helpers;
 using System.Security.Cryptography;
+using Microsoft.AspNetCore.Authorization;
 
 
 
@@ -42,6 +43,7 @@ namespace webapi.Controllers
         }
 
         [HttpPost("send-reset-email/{email}")]
+        [Authorize(Roles = "administrador")]
         public async Task<IActionResult> SendEmail(string email)
         {
             var usuario = await _dbContext.Usuarios.FirstOrDefaultAsync(p => p.Email != null && p.Email.Trim() == email.Trim());
