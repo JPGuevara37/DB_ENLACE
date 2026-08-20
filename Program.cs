@@ -149,6 +149,8 @@ using (var serviceScope = app.Services.CreateScope())
 
             IF COL_LENGTH('Profesores', 'Categoria') IS NULL ALTER TABLE Profesores ADD Categoria nvarchar(50) NULL;
 
+            IF COL_LENGTH('Usuarios', 'Avatar') IS NULL ALTER TABLE Usuarios ADD Avatar nvarchar(max) NULL;
+
             IF COL_LENGTH('RolesMes', 'Dia') IS NULL ALTER TABLE RolesMes ADD Dia int NOT NULL DEFAULT 1;
 
             IF NOT EXISTS (SELECT * FROM sys.default_constraints WHERE name = 'DF_Materiales_MaterialId')

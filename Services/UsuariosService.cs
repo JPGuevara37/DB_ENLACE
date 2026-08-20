@@ -88,6 +88,58 @@ namespace webapi.Services
                 (excluirId == null || u.UsuarioId != excluirId.Value));
         }
 
+        public PerfilDto GetPerfil(Guid id)
+        {
+            var usuario = _dbContext.Usuarios.Find(id);
+            return usuario == null ? null : new PerfilDto
+            {
+                UsuarioId = usuario.UsuarioId,
+                Nombre = usuario.Nombre,
+                Apellido = usuario.Apellido,
+                Usuario_Cuenta = usuario.Usuario_Cuenta,
+                Email = usuario.Email,
+                Role = usuario.Role,
+                Avatar = usuario.Avatar
+            };
+        }
+
+        public void UpdatePerfil(Guid id, PerfilGuardarDto dto)
+        {
+            var usuario = _dbContext.Usuarios.Find(id);
+
+            if (usuario == null)
+            {
+                return;
+            }
+
+            usuario.Nombre = dto.Nombre;
+            usuario.Apellido = dto.Apellido;
+            usuario.Usuario_Cuenta = dto.Usuario_Cuenta;
+            usuario.Email = dto.Email;
+            usuario.Avatar = dto.Avatar;
+
+            _dbContext.SaveChanges();
+        }
+
+        public bool CambiarPassword(Guid id, string passwordActual, string passwordNueva)
+        {
+            var usuario = _dbContext.Usuarios.Find(id);
+
+            if (usuario == null)
+            {
+                return false;
+            }
+
+            if (!PasswordHasher.VerifyPassword(passwordActual, usuario.Password))
+            {
+                return false;
+            }
+
+            usuario.Password = PasswordHasher.HashPassword(passwordNueva);
+            _dbContext.SaveChanges();
+            return true;
+        }
+
         private static UsuarioAdminDto MapToDto(Usuarios u)
         {
             return new UsuarioAdminDto
@@ -111,5 +163,8 @@ namespace webapi.Services
         void Update(Guid id, UsuarioGuardarDto usuarioActualizado);
         void Delete(Guid id);
         bool ExisteCuenta(string usuarioCuenta, Guid? excluirId = null);
+        PerfilDto GetPerfil(Guid id);
+        void UpdatePerfil(Guid id, PerfilGuardarDto dto);
+        bool CambiarPassword(Guid id, string passwordActual, string passwordNueva);
     }
 }

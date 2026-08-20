@@ -158,6 +158,8 @@ public class EnlaceContext : DbContext
 
             usuarios.Property(p => p.Email);
 
+            usuarios.Property(p => p.Avatar);
+
             usuarios.Property(p => p.Token);
 
             usuarios.Property(p => p.Role);

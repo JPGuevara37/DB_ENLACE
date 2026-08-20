@@ -64,6 +64,7 @@ namespace webapi.Controllers
                 Token = usuario.Token,
                 Nombre = usuario.Nombre,
                 Apellido = usuario.Apellido,
+                Avatar = usuario.Avatar,
                 Message = "Login exitoso"
             });
         }
@@ -81,6 +82,7 @@ namespace webapi.Controllers
             var identity = new ClaimsIdentity(new Claim[]
             {
                 new Claim(ClaimTypes.Role, usuario.Role),
+                new Claim(ClaimTypes.NameIdentifier, usuario.UsuarioId.ToString()),
                 new Claim(ClaimTypes.Name,$"{usuario.Nombre} {usuario.Apellido}")
             });
 
