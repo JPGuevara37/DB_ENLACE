@@ -179,11 +179,65 @@ using (var serviceScope = app.Services.CreateScope())
                     [Disponible] bit NOT NULL,
                     [FechaCreacion] datetime2 NOT NULL
                 );
+            END
+
+            IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ContenidoPortal]') AND type in (N'U'))
+            BEGIN
+                CREATE TABLE [dbo].[ContenidoPortal] (
+                    [ContenidoId] uniqueidentifier NOT NULL PRIMARY KEY,
+                    [Seccion] nvarchar(50) NULL,
+                    [Titulo] nvarchar(200) NULL,
+                    [Detalle] nvarchar(500) NULL,
+                    [Icono] nvarchar(50) NULL,
+                    [Orden] int NOT NULL
+                );
             END");
     }
     catch (Exception ex)
     {
         Console.WriteLine($"Error preparando la base de datos: {ex.Message}");
+    }
+
+    try
+    {
+        if (!dbContext.ContenidoPortal.Any(c => c.Seccion == "meta"))
+        {
+            var metas = new[]
+            {
+                "Continuar con el material propio, estudiando libros enteros de la Biblia.",
+                "Capacitar al equipo de servidores para tratar niños con capacidades especiales y niños en riesgo, además de proveer más técnicas de enseñanza.",
+                "Ofrecer discipulados a aquellos que quieran incorporarse al equipo para enseñar.",
+                "Reunir 4 veces al año al equipo de trabajo completo para capacitación y evaluación.",
+                "Realizar seguimientos individuales (1v1) a cada servidor.",
+                "Realizar reunión de padres al menos una vez al año.",
+                "Entrevistar a familias nuevas para actualizar la base de datos.",
+            };
+            for (var i = 0; i < metas.Length; i++)
+            {
+                dbContext.ContenidoPortal.Add(new ContenidoPortal
+                {
+                    ContenidoId = Guid.NewGuid(),
+                    Seccion = "meta",
+                    Detalle = metas[i],
+                    Orden = i + 1,
+                });
+            }
+        }
+
+        if (!dbContext.ContenidoPortal.Any(c => c.Seccion == "actividad"))
+        {
+            dbContext.ContenidoPortal.AddRange(
+                new ContenidoPortal { ContenidoId = Guid.NewGuid(), Seccion = "actividad", Titulo = "Escuelita de vacaciones", Detalle = "16 al 18 de julio, 2026", Icono = "fa-sun", Orden = 1 },
+                new ContenidoPortal { ContenidoId = Guid.NewGuid(), Seccion = "actividad", Titulo = "Día del Niño (Evangelístico)", Detalle = "13 de septiembre", Icono = "fa-children", Orden = 2 },
+                new ContenidoPortal { ContenidoId = Guid.NewGuid(), Seccion = "actividad", Titulo = "Fiesta de Navidad", Detalle = "13 de diciembre", Icono = "fa-gift", Orden = 3 }
+            );
+        }
+
+        dbContext.SaveChanges();
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error sembrando contenido del portal: {ex.Message}");
     }
 }
 
