@@ -9,6 +9,7 @@ public class Recursos
     public int Numero_Locker { get; set; }  
     public int? Cantidad { get; set; }
     public string? Descripcion { get; set; }
+    public string? Categoria { get; set; }
     public bool Activo { get; set; }
 
     // Agregar la nueva propiedad Numero_Locker

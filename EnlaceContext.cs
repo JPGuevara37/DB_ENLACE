@@ -193,6 +193,8 @@ public class EnlaceContext : DbContext
 
             recursos.Property(p => p.Descripcion).IsRequired(false).HasMaxLength(350);
 
+            recursos.Property(p => p.Categoria).IsRequired(false).HasMaxLength(100);
+
             recursos.Property(p => p.Activo).HasColumnName("Activo").HasColumnType("bit").HasDefaultValue(false);
         });
 

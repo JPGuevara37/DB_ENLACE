@@ -39,6 +39,7 @@ namespace webapi.Services
                 recurso.Numero_Locker = RecursoActualizado.Numero_Locker;
                 recurso.Cantidad = RecursoActualizado.Cantidad;
                 recurso.Descripcion = RecursoActualizado.Descripcion;
+                recurso.Categoria = RecursoActualizado.Categoria;
                 recurso.Activo = RecursoActualizado.Activo;
 
                 _dbContext.SaveChanges();
