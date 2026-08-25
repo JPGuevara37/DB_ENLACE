@@ -140,6 +140,8 @@ public class EnlaceContext : DbContext
 
             profesores.Property(p => p.Categoria).IsRequired(false).HasMaxLength(50);
 
+            profesores.Property(p => p.Avatar).IsRequired(false);
+
 
         });
 

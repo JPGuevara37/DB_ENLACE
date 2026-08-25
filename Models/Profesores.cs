@@ -18,6 +18,8 @@ public class Profesores
 
     public string Categoria { get; set; } = "Profesor";
 
+    public string? Avatar { get; set; }
+
     [JsonIgnore]
     public virtual ICollection<Clases> Clases { get; set; }
     
