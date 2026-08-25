@@ -155,6 +155,8 @@ using (var serviceScope = app.Services.CreateScope())
 
             IF COL_LENGTH('RolesMes', 'Dia') IS NULL ALTER TABLE RolesMes ADD Dia int NOT NULL DEFAULT 1;
 
+            IF COL_LENGTH('RolesMes', 'Respuesta') IS NULL ALTER TABLE RolesMes ADD Respuesta nvarchar(50) NULL;
+
             IF NOT EXISTS (SELECT * FROM sys.default_constraints WHERE name = 'DF_Materiales_MaterialId')
                 ALTER TABLE Materiales ADD CONSTRAINT DF_Materiales_MaterialId DEFAULT (newid()) FOR MaterialId;
 

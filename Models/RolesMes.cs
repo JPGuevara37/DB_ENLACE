@@ -19,5 +19,7 @@ public class RolesMes
 
     public bool Disponible { get; set; } = true;
 
+    public string? Respuesta { get; set; }
+
     public DateTime FechaCreacion { get; set; } = DateTime.Now;
 }
