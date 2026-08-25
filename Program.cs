@@ -191,6 +191,16 @@ using (var serviceScope = app.Services.CreateScope())
                     [Icono] nvarchar(50) NULL,
                     [Orden] int NOT NULL
                 );
+            END
+
+            IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[MaterialClase]') AND type in (N'U'))
+            BEGIN
+                CREATE TABLE [dbo].[MaterialClase] (
+                    [MaterialClaseId] uniqueidentifier NOT NULL PRIMARY KEY,
+                    [RecursoId] uniqueidentifier NOT NULL,
+                    [Clase] nvarchar(50) NULL,
+                    [Cantidad] int NOT NULL
+                );
             END");
     }
     catch (Exception ex)

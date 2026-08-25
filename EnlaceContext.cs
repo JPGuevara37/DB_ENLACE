@@ -15,6 +15,7 @@ public class EnlaceContext : DbContext
     public DbSet<Material> Materiales { get; set; }
     public DbSet<RolesMes> RolesMes { get; set; }
     public DbSet<ContenidoPortal> ContenidoPortal { get; set; }
+    public DbSet<MaterialClase> MaterialClase { get; set; }
 
 
     public EnlaceContext(DbContextOptions<EnlaceContext> options) : base(options) { }
@@ -244,6 +245,16 @@ public class EnlaceContext : DbContext
             contenido.Property(p => p.Detalle).IsRequired(false).HasMaxLength(500);
             contenido.Property(p => p.Icono).IsRequired(false).HasMaxLength(50);
             contenido.Property(p => p.Orden);
+        });
+
+        modelBuilder.Entity<MaterialClase>(materialClase =>
+        {
+            materialClase.ToTable("MaterialClase");
+            materialClase.HasKey(p => p.MaterialClaseId);
+
+            materialClase.Property(p => p.RecursoId);
+            materialClase.Property(p => p.Clase).IsRequired(false).HasMaxLength(50);
+            materialClase.Property(p => p.Cantidad);
         });
     }
 }
