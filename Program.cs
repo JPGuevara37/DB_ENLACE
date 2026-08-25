@@ -147,6 +147,8 @@ using (var serviceScope = app.Services.CreateScope())
             IF COL_LENGTH('Materiales', 'Anno') IS NULL ALTER TABLE Materiales ADD Anno int NULL;
             IF COL_LENGTH('Materiales', 'Dia') IS NULL ALTER TABLE Materiales ADD Dia int NULL;
 
+            IF COL_LENGTH('Recursos', 'Categoria') IS NULL ALTER TABLE Recursos ADD Categoria nvarchar(100) NULL;
+
             IF COL_LENGTH('Profesores', 'Categoria') IS NULL ALTER TABLE Profesores ADD Categoria nvarchar(50) NULL;
 
             IF COL_LENGTH('Usuarios', 'Avatar') IS NULL ALTER TABLE Usuarios ADD Avatar nvarchar(max) NULL;
