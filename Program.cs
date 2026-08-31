@@ -163,6 +163,8 @@ using (var serviceScope = app.Services.CreateScope())
 
             IF COL_LENGTH('RolesMes', 'Tipo') IS NULL ALTER TABLE RolesMes ADD Tipo nvarchar(50) NULL;
 
+            IF COL_LENGTH('RolesMes', 'Motivo') IS NULL ALTER TABLE RolesMes ADD Motivo nvarchar(500) NULL;
+
             ALTER TABLE RolesMes ALTER COLUMN EdadId uniqueidentifier NULL;
 
             IF NOT EXISTS (SELECT * FROM sys.default_constraints WHERE name = 'DF_Materiales_MaterialId')
@@ -182,6 +184,8 @@ using (var serviceScope = app.Services.CreateScope())
                     [Tipo] nvarchar(50) NULL,
                     [Estado] nvarchar(50) NULL,
                     [Disponible] bit NOT NULL,
+                    [Respuesta] nvarchar(50) NULL,
+                    [Motivo] nvarchar(500) NULL,
                     [FechaCreacion] datetime2 NOT NULL
                 );
             END

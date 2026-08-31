@@ -102,11 +102,12 @@ namespace webapi.Controllers
             }
 
             rol.Respuesta = string.IsNullOrEmpty(dto.Respuesta) ? null : dto.Respuesta;
+            rol.Motivo = string.IsNullOrWhiteSpace(dto.Motivo) ? null : dto.Motivo.Trim();
             await _dbContext.SaveChangesAsync();
 
-            if (rol.Respuesta == "Aceptada")
+            if (rol.Respuesta == "Aceptada" || rol.Respuesta == "Rechazada")
             {
-                EnviarNotificacionAceptacion(rol);
+                EnviarNotificacionRespuesta(rol);
             }
 
             return Ok(new ApiResponse { status = "ok", result = new { mensaje = "Respuesta guardada" } });
@@ -119,7 +120,7 @@ namespace webapi.Controllers
             return Ok(new ApiResponse { status = "ok", result = new { mensaje = "Asignación eliminada" } });
         }
 
-        private void EnviarNotificacionAceptacion(RolesMes rol)
+        private void EnviarNotificacionRespuesta(RolesMes rol)
         {
             try
             {
@@ -148,29 +149,39 @@ namespace webapi.Controllers
                 var fecha = new DateTime(rol.Anno, rol.Mes, rol.Dia)
                     .ToString("dd 'de' MMMM 'de' yyyy", new CultureInfo("es-ES"));
 
+                var aceptada = rol.Respuesta == "Aceptada";
+                var titulo = aceptada ? "Asignación confirmada" : "Asignación rechazada";
+                var accion = aceptada ? "confirmó" : "rechazó";
+                var asunto = $"[Enlace] {nombreProfesor} {accion} su asignación";
+
+                var filaMotivo = !aceptada && !string.IsNullOrWhiteSpace(rol.Motivo)
+                    ? $"<tr><td style='padding:8px;color:#666;vertical-align:top;'>Motivo</td><td style='padding:8px;font-weight:bold;'>{System.Net.WebUtility.HtmlEncode(rol.Motivo)}</td></tr>"
+                    : "";
+
                 var contenido = $@"
                     <!DOCTYPE html>
                     <html lang='es'>
                     <head><meta charset='UTF-8'></head>
                     <body style='font-family:Arial,sans-serif;padding:20px;background:#f5f5f5;'>
                         <div style='max-width:600px;margin:0 auto;background:#fff;padding:24px;border-radius:10px;'>
-                            <h2 style='color:#005a65;margin-top:0;'>Asignación confirmada</h2>
-                            <p><strong>{nombreProfesor}</strong> confirmó su asignación.</p>
+                            <h2 style='color:#005a65;margin-top:0;'>{titulo}</h2>
+                            <p><strong>{nombreProfesor}</strong> {accion} su asignación.</p>
                             <table style='width:100%;border-collapse:collapse;'>
                                 <tr><td style='padding:8px;color:#666;'>Clase</td><td style='padding:8px;font-weight:bold;'>{clase}</td></tr>
                                 <tr><td style='padding:8px;color:#666;'>Fecha</td><td style='padding:8px;font-weight:bold;'>{fecha}</td></tr>
+                                {filaMotivo}
                             </table>
                             <p style='color:#8592a6;font-size:12px;'>Ministerio infantil Enlace.</p>
                         </div>
                     </body>
                     </html>";
 
-                var emailModel = new EmailModel(destinatario, $"[Enlace] {nombreProfesor} confirmó su asignación", contenido);
+                var emailModel = new EmailModel(destinatario, asunto, contenido);
                 _emailService.SendEmail(emailModel);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"No se pudo enviar la notificación de aceptación: {ex.Message}");
+                Console.WriteLine($"No se pudo enviar la notificación de respuesta: {ex.Message}");
             }
         }
 

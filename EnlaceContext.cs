@@ -234,6 +234,7 @@ public class EnlaceContext : DbContext
             rol.Property(p => p.Estado).IsRequired(false).HasMaxLength(50);
             rol.Property(p => p.Disponible);
             rol.Property(p => p.Respuesta).IsRequired(false).HasMaxLength(50);
+            rol.Property(p => p.Motivo).IsRequired(false).HasMaxLength(500);
             rol.Property(p => p.FechaCreacion);
         });
 

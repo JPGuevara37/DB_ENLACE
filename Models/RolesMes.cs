@@ -23,5 +23,7 @@ public class RolesMes
 
     public string? Respuesta { get; set; }
 
+    public string? Motivo { get; set; }
+
     public DateTime FechaCreacion { get; set; } = DateTime.Now;
 }
