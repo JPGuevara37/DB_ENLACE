@@ -8,12 +8,14 @@ public class RolesMes
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid RolMesId { get; set; }
 
-    public Guid EdadId { get; set; }
+    public Guid? EdadId { get; set; }
     public Guid PersonaId { get; set; }
 
     public int Mes { get; set; }
     public int Anno { get; set; }
     public int Dia { get; set; }
+
+    public string Tipo { get; set; } = "Clase";
 
     public string Estado { get; set; } = "Propuesta";
 

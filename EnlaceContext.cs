@@ -16,6 +16,7 @@ public class EnlaceContext : DbContext
     public DbSet<RolesMes> RolesMes { get; set; }
     public DbSet<ContenidoPortal> ContenidoPortal { get; set; }
     public DbSet<MaterialClase> MaterialClase { get; set; }
+    public DbSet<CenaSenor> CenaSenor { get; set; }
 
 
     public EnlaceContext(DbContextOptions<EnlaceContext> options) : base(options) { }
@@ -224,11 +225,12 @@ public class EnlaceContext : DbContext
             rol.ToTable("RolesMes");
             rol.HasKey(p => p.RolMesId);
 
-            rol.Property(p => p.EdadId);
+            rol.Property(p => p.EdadId).IsRequired(false);
             rol.Property(p => p.PersonaId);
             rol.Property(p => p.Mes);
             rol.Property(p => p.Anno);
             rol.Property(p => p.Dia);
+            rol.Property(p => p.Tipo).IsRequired(false).HasMaxLength(50);
             rol.Property(p => p.Estado).IsRequired(false).HasMaxLength(50);
             rol.Property(p => p.Disponible);
             rol.Property(p => p.Respuesta).IsRequired(false).HasMaxLength(50);
@@ -255,6 +257,16 @@ public class EnlaceContext : DbContext
             materialClase.Property(p => p.RecursoId);
             materialClase.Property(p => p.Clase).IsRequired(false).HasMaxLength(50);
             materialClase.Property(p => p.Cantidad);
+        });
+
+        modelBuilder.Entity<CenaSenor>(cena =>
+        {
+            cena.ToTable("CenaSenor");
+            cena.HasKey(p => p.CenaSenorId);
+
+            cena.Property(p => p.Mes);
+            cena.Property(p => p.Anno);
+            cena.Property(p => p.Dia);
         });
     }
 }

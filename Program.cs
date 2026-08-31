@@ -161,6 +161,10 @@ using (var serviceScope = app.Services.CreateScope())
 
             IF COL_LENGTH('RolesMes', 'Respuesta') IS NULL ALTER TABLE RolesMes ADD Respuesta nvarchar(50) NULL;
 
+            IF COL_LENGTH('RolesMes', 'Tipo') IS NULL ALTER TABLE RolesMes ADD Tipo nvarchar(50) NULL;
+
+            ALTER TABLE RolesMes ALTER COLUMN EdadId uniqueidentifier NULL;
+
             IF NOT EXISTS (SELECT * FROM sys.default_constraints WHERE name = 'DF_Materiales_MaterialId')
                 ALTER TABLE Materiales ADD CONSTRAINT DF_Materiales_MaterialId DEFAULT (newid()) FOR MaterialId;
 
@@ -171,10 +175,11 @@ using (var serviceScope = app.Services.CreateScope())
             BEGIN
                 CREATE TABLE [dbo].[RolesMes] (
                     [RolMesId] uniqueidentifier NOT NULL PRIMARY KEY,
-                    [EdadId] uniqueidentifier NOT NULL,
+                    [EdadId] uniqueidentifier NULL,
                     [PersonaId] uniqueidentifier NOT NULL,
                     [Mes] int NOT NULL,
                     [Anno] int NOT NULL,
+                    [Tipo] nvarchar(50) NULL,
                     [Estado] nvarchar(50) NULL,
                     [Disponible] bit NOT NULL,
                     [FechaCreacion] datetime2 NOT NULL
@@ -201,7 +206,21 @@ using (var serviceScope = app.Services.CreateScope())
                     [Clase] nvarchar(50) NULL,
                     [Cantidad] int NOT NULL
                 );
-            END");
+            END
+
+            IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[CenaSenor]') AND type in (N'U'))
+            BEGIN
+                CREATE TABLE [dbo].[CenaSenor] (
+                    [CenaSenorId] uniqueidentifier NOT NULL PRIMARY KEY,
+                    [Mes] int NOT NULL,
+                    [Anno] int NOT NULL,
+                    [Dia] int NOT NULL
+                );
+            END
+
+            IF NOT EXISTS (SELECT * FROM sys.default_constraints WHERE name = 'DF_CenaSenor_CenaSenorId')
+                ALTER TABLE CenaSenor ADD CONSTRAINT DF_CenaSenor_CenaSenorId DEFAULT (newid()) FOR CenaSenorId;
+");
     }
     catch (Exception ex)
     {
